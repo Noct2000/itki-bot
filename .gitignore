@@ -30,7 +30,7 @@
 .env
 
 # Ignore node_modules
-node_modules
+node-red/config/node_modules
 
 temp
 deploy_logs.json
