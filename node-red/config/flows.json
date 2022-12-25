@@ -8,22 +8,71 @@
         "env": []
     },
     {
-        "id": "2dc319ce03a01e51",
-        "type": "catch",
+        "id": "2f28686888d6bd2a",
+        "type": "chatbot-telegram-node",
+        "botname": "ITKI_bot",
+        "usernames": "",
+        "polling": "1000",
+        "store": "",
+        "log": "",
+        "debug": true,
+        "skipMediaFiles": false,
+        "webHook": "",
+        "connectMode": "polling",
+        "storeMessages": true,
+        "enableMissionControl": false,
+        "inspectMessages": true,
+        "chatbotId": ""
+    },
+    {
+        "id": "d8f1225757fcd093",
+        "type": "chatbot-telegram-receive",
         "z": "ef8f9b32dc650502",
-        "name": "",
-        "scope": null,
-        "uncaught": false,
-        "x": 180,
-        "y": 200,
+        "bot": "2f28686888d6bd2a",
+        "botProduction": "",
+        "x": 190,
+        "y": 120,
         "wires": [
             [
-                "3591f71af5b152b4"
+                "11299c98bba5c8d0",
+                "d43c2185469d34d6"
             ]
         ]
     },
     {
-        "id": "3591f71af5b152b4",
+        "id": "6bc1c3172ea348be",
+        "type": "chatbot-telegram-send",
+        "z": "ef8f9b32dc650502",
+        "bot": "2f28686888d6bd2a",
+        "botProduction": "",
+        "track": false,
+        "passThrough": false,
+        "errorOutput": false,
+        "outputs": 0,
+        "x": 530,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d43c2185469d34d6",
+        "type": "chatbot-conversation",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "botDevelopment": "2f28686888d6bd2a",
+        "botProduction": "2f28686888d6bd2a",
+        "chatId": "chatId",
+        "userId": "",
+        "transport": "telegram",
+        "x": 570,
+        "y": 260,
+        "wires": [
+            [
+                "6bc1c3172ea348be"
+            ]
+        ]
+    },
+    {
+        "id": "11299c98bba5c8d0",
         "type": "debug",
         "z": "ef8f9b32dc650502",
         "name": "debug 1",
@@ -35,7 +84,24 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 360,
-        "y": 200,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "3c5b562d376361ec",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "text",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 360,
         "wires": []
     }
 ]
