@@ -1,0 +1,23 @@
+[
+    {
+        "id": "ef8f9b32dc650502",
+        "type": "tab",
+        "label": "Test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2dc319ce03a01e51",
+        "type": "catch",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 180,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    }
+]
