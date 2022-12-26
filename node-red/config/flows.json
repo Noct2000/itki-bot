@@ -35,7 +35,7 @@
         "wires": [
             [
                 "11299c98bba5c8d0",
-                "d43c2185469d34d6"
+                "d5db58cbad6ccb63"
             ]
         ]
     },
@@ -49,27 +49,9 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 0,
-        "x": 530,
+        "x": 830,
         "y": 120,
         "wires": []
-    },
-    {
-        "id": "d43c2185469d34d6",
-        "type": "chatbot-conversation",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "botDevelopment": "2f28686888d6bd2a",
-        "botProduction": "2f28686888d6bd2a",
-        "chatId": "chatId",
-        "userId": "",
-        "transport": "telegram",
-        "x": 570,
-        "y": 260,
-        "wires": [
-            [
-                "6bc1c3172ea348be"
-            ]
-        ]
     },
     {
         "id": "11299c98bba5c8d0",
@@ -88,20 +70,116 @@
         "wires": []
     },
     {
-        "id": "3c5b562d376361ec",
-        "type": "debug",
+        "id": "846cbba6d24c7182",
+        "type": "chatbot-telegram-menu",
         "z": "ef8f9b32dc650502",
-        "name": "text",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 510,
-        "y": 360,
+        "bot": "2f28686888d6bd2a",
+        "items": [
+            {
+                "command": "/test",
+                "description": "test command"
+            },
+            {
+                "command": "/command",
+                "description": "command"
+            }
+        ],
+        "x": 280,
+        "y": 340,
         "wires": []
+    },
+    {
+        "id": "9bbda5ba0781f72e",
+        "type": "inject",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 340,
+        "wires": [
+            [
+                "846cbba6d24c7182"
+            ]
+        ]
+    },
+    {
+        "id": "32ead40934bc62c2",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "message": [
+            {
+                "message": "Test ping"
+            }
+        ],
+        "language": "none",
+        "x": 570,
+        "y": 140,
+        "wires": [
+            [
+                "6bc1c3172ea348be"
+            ]
+        ]
+    },
+    {
+        "id": "d5db58cbad6ccb63",
+        "type": "chatbot-rules",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "rules": [
+            {
+                "type": "command",
+                "command": "/command"
+            },
+            {
+                "type": "command",
+                "command": "/test"
+            }
+        ],
+        "outputs": 2,
+        "x": 430,
+        "y": 120,
+        "wires": [
+            [
+                "ef41fc39b74f7085"
+            ],
+            [
+                "32ead40934bc62c2"
+            ]
+        ]
+    },
+    {
+        "id": "ef41fc39b74f7085",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "message": [
+            {
+                "message": "command pong"
+            }
+        ],
+        "language": "none",
+        "x": 570,
+        "y": 100,
+        "wires": [
+            [
+                "6bc1c3172ea348be"
+            ]
+        ]
     }
 ]
