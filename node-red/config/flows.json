@@ -12,7 +12,7 @@
         "type": "chatbot-telegram-node",
         "botname": "ITKI_bot",
         "usernames": "",
-        "polling": "1000",
+        "polling": "100",
         "store": "",
         "log": "",
         "debug": true,
@@ -49,8 +49,8 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 0,
-        "x": 830,
-        "y": 120,
+        "x": 1310,
+        "y": 180,
         "wires": []
     },
     {
@@ -80,8 +80,8 @@
                 "description": "test command"
             },
             {
-                "command": "/command",
-                "description": "command"
+                "command": "/where_is",
+                "description": "Знайти розташування аудитоорії по номеру"
             }
         ],
         "x": 280,
@@ -118,25 +118,6 @@
         ]
     },
     {
-        "id": "32ead40934bc62c2",
-        "type": "chatbot-message",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "message": [
-            {
-                "message": "Test ping"
-            }
-        ],
-        "language": "none",
-        "x": 570,
-        "y": 140,
-        "wires": [
-            [
-                "6bc1c3172ea348be"
-            ]
-        ]
-    },
-    {
         "id": "d5db58cbad6ccb63",
         "type": "chatbot-rules",
         "z": "ef8f9b32dc650502",
@@ -144,7 +125,7 @@
         "rules": [
             {
                 "type": "command",
-                "command": "/command"
+                "command": "/where_is"
             },
             {
                 "type": "command",
@@ -159,7 +140,7 @@
                 "ef41fc39b74f7085"
             ],
             [
-                "32ead40934bc62c2"
+                "4c289ce31a7af59f"
             ]
         ]
     },
@@ -170,16 +151,137 @@
         "name": "",
         "message": [
             {
-                "message": "command pong"
+                "message": "Введіть номер аудиторії "
             }
         ],
         "language": "none",
-        "x": 570,
-        "y": 100,
+        "x": 590,
+        "y": 80,
+        "wires": [
+            [
+                "b8cc7e425cdc6abf"
+            ]
+        ]
+    },
+    {
+        "id": "4c289ce31a7af59f",
+        "type": "chatbot-ask",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "buttons": [
+            {
+                "type": "keyboardButton",
+                "label": "test1"
+            },
+            {
+                "type": "keyboardButton",
+                "label": "test2"
+            },
+            {
+                "type": "keyboardButton",
+                "label": "test3"
+            },
+            {
+                "type": "keyboardButton",
+                "label": "test4"
+            }
+        ],
+        "message": "найчастіші питання ",
+        "x": 590,
+        "y": 180,
+        "wires": [
+            [
+                "6bc1c3172ea348be",
+                "fb2ffb29f680d892"
+            ]
+        ]
+    },
+    {
+        "id": "fb2ffb29f680d892",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "keyboard",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b8cc7e425cdc6abf",
+        "type": "chatbot-telegram-send",
+        "z": "ef8f9b32dc650502",
+        "bot": "2f28686888d6bd2a",
+        "botProduction": "",
+        "track": true,
+        "passThrough": false,
+        "errorOutput": false,
+        "outputs": 1,
+        "x": 770,
+        "y": 80,
+        "wires": [
+            [
+                "9acfe5a74488b916"
+            ]
+        ]
+    },
+    {
+        "id": "0a419fb59dfccbdb",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "message": [
+            {
+                "message": "Ви ввели {{string}}"
+            }
+        ],
+        "language": "none",
+        "x": 1190,
+        "y": 80,
         "wires": [
             [
                 "6bc1c3172ea348be"
             ]
         ]
+    },
+    {
+        "id": "9acfe5a74488b916",
+        "type": "chatbot-parse",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "parseType": "string",
+        "parseVariable": "string",
+        "x": 980,
+        "y": 80,
+        "wires": [
+            [
+                "0a419fb59dfccbdb"
+            ],
+            [
+                "c319e8cddcd6db9d"
+            ]
+        ]
+    },
+    {
+        "id": "c319e8cddcd6db9d",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 140,
+        "wires": []
     }
 ]
