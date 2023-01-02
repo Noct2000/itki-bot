@@ -30,8 +30,8 @@
         "z": "ef8f9b32dc650502",
         "bot": "2f28686888d6bd2a",
         "botProduction": "",
-        "x": 190,
-        "y": 120,
+        "x": 150,
+        "y": 620,
         "wires": [
             [
                 "11299c98bba5c8d0",
@@ -49,8 +49,8 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 0,
-        "x": 1310,
-        "y": 180,
+        "x": 1970,
+        "y": 220,
         "wires": []
     },
     {
@@ -65,8 +65,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 360,
-        "y": 40,
+        "x": 320,
+        "y": 540,
         "wires": []
     },
     {
@@ -76,16 +76,24 @@
         "bot": "2f28686888d6bd2a",
         "items": [
             {
-                "command": "/test",
-                "description": "test command"
+                "command": "/help",
+                "description": "Відповіді на часті запитання"
             },
             {
                 "command": "/where_is",
                 "description": "Знайти розташування аудитоорії по номеру"
+            },
+            {
+                "command": "/curator",
+                "description": "Знайти куратора по номеру групи"
+            },
+            {
+                "command": "/schedule",
+                "description": "Отримати останній розклад ФІТ"
             }
         ],
-        "x": 280,
-        "y": 340,
+        "x": 300,
+        "y": 300,
         "wires": []
     },
     {
@@ -109,8 +117,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 110,
-        "y": 340,
+        "x": 130,
+        "y": 300,
         "wires": [
             [
                 "846cbba6d24c7182"
@@ -129,18 +137,48 @@
             },
             {
                 "type": "command",
-                "command": "/test"
+                "command": "/help"
+            },
+            {
+                "type": "command",
+                "command": "/curator"
+            },
+            {
+                "type": "command",
+                "command": "/schedule"
+            },
+            {
+                "type": "command",
+                "command": "/start"
+            },
+            {
+                "type": "notMessageType",
+                "messageType": "command"
+            },
+            {
+                "type": "catchAll"
             }
         ],
-        "outputs": 2,
-        "x": 430,
-        "y": 120,
+        "outputs": 7,
+        "x": 390,
+        "y": 620,
         "wires": [
             [
                 "ef41fc39b74f7085"
             ],
             [
-                "4c289ce31a7af59f"
+                "9601e27c5c08ab08"
+            ],
+            [],
+            [],
+            [
+                "6207f6baa19bfda1"
+            ],
+            [
+                "20a71a061e8c5f20"
+            ],
+            [
+                "a8559b57b8d3879f"
             ]
         ]
     },
@@ -151,67 +189,17 @@
         "name": "",
         "message": [
             {
-                "message": "Введіть номер аудиторії "
+                "message": "Введи номер аудиторії (поки підтримується тільки корпус 7)"
             }
         ],
         "language": "none",
-        "x": 590,
-        "y": 80,
+        "x": 550,
+        "y": 580,
         "wires": [
             [
                 "b8cc7e425cdc6abf"
             ]
         ]
-    },
-    {
-        "id": "4c289ce31a7af59f",
-        "type": "chatbot-ask",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "buttons": [
-            {
-                "type": "keyboardButton",
-                "label": "test1"
-            },
-            {
-                "type": "keyboardButton",
-                "label": "test2"
-            },
-            {
-                "type": "keyboardButton",
-                "label": "test3"
-            },
-            {
-                "type": "keyboardButton",
-                "label": "test4"
-            }
-        ],
-        "message": "найчастіші питання ",
-        "x": 590,
-        "y": 180,
-        "wires": [
-            [
-                "6bc1c3172ea348be",
-                "fb2ffb29f680d892"
-            ]
-        ]
-    },
-    {
-        "id": "fb2ffb29f680d892",
-        "type": "debug",
-        "z": "ef8f9b32dc650502",
-        "name": "keyboard",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 780,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "b8cc7e425cdc6abf",
@@ -223,30 +211,11 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 1,
-        "x": 770,
-        "y": 80,
+        "x": 730,
+        "y": 580,
         "wires": [
             [
                 "9acfe5a74488b916"
-            ]
-        ]
-    },
-    {
-        "id": "0a419fb59dfccbdb",
-        "type": "chatbot-message",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "message": [
-            {
-                "message": "Ви ввели {{string}}"
-            }
-        ],
-        "language": "none",
-        "x": 1190,
-        "y": 80,
-        "wires": [
-            [
-                "6bc1c3172ea348be"
             ]
         ]
     },
@@ -255,33 +224,487 @@
         "type": "chatbot-parse",
         "z": "ef8f9b32dc650502",
         "name": "",
-        "parseType": "string",
-        "parseVariable": "string",
-        "x": 980,
-        "y": 80,
+        "parseType": "number-integer",
+        "parseVariable": "cabinet",
+        "x": 940,
+        "y": 580,
         "wires": [
             [
-                "0a419fb59dfccbdb"
+                "de9e296e576e16d9"
             ],
             [
-                "c319e8cddcd6db9d"
+                "ef0fd14b9f699474"
             ]
         ]
     },
     {
-        "id": "c319e8cddcd6db9d",
-        "type": "debug",
+        "id": "6207f6baa19bfda1",
+        "type": "chatbot-message",
         "z": "ef8f9b32dc650502",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1100,
-        "y": 140,
+        "name": "welcome message",
+        "message": [
+            {
+                "message": "Привіт! Я твій особистий помічник ITKI-bot. Ознайомся з командами які я можу виконати натиснувши /"
+            }
+        ],
+        "language": "none",
+        "x": 630,
+        "y": 680,
+        "wires": [
+            [
+                "cf32863c571a6118"
+            ]
+        ]
+    },
+    {
+        "id": "14dcac47d6fa8938",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "find floor",
+        "func": "msg.floor = Math.floor(msg.chat().get('cabinet') / 100);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 540,
+        "wires": [
+            [
+                "d97158d544f83b7c"
+            ]
+        ]
+    },
+    {
+        "id": "de9e296e576e16d9",
+        "type": "switch",
+        "z": "ef8f9b32dc650502",
+        "name": "is valid number",
+        "property": "msg.chat().get('cabinet')",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "100",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1140,
+        "y": 540,
+        "wires": [
+            [
+                "14dcac47d6fa8938"
+            ],
+            [
+                "ef0fd14b9f699474"
+            ]
+        ]
+    },
+    {
+        "id": "ef0fd14b9f699474",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "invalid number",
+        "message": [
+            {
+                "message": "Було введено не правильний номер кабінету. Виконай команду /where_is знов"
+            }
+        ],
+        "language": "none",
+        "x": 1300,
+        "y": 600,
+        "wires": [
+            [
+                "b652a5b7ed33e00c"
+            ]
+        ]
+    },
+    {
+        "id": "d97158d544f83b7c",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "Answer",
+        "message": [
+            {
+                "message": "Аудиторія знаходиться у 7 корпусі на {{floor}} поверсі"
+            }
+        ],
+        "language": "none",
+        "x": 1500,
+        "y": 540,
+        "wires": [
+            [
+                "b96b9e7155c9a0da"
+            ]
+        ]
+    },
+    {
+        "id": "a8559b57b8d3879f",
+        "type": "chatbot-ask",
+        "z": "ef8f9b32dc650502",
+        "name": "remove buttons and send error",
+        "buttons": [],
+        "message": "Невідома команда ",
+        "x": 670,
+        "y": 780,
+        "wires": [
+            [
+                "4e6ba142399aabc8"
+            ]
+        ]
+    },
+    {
+        "id": "9601e27c5c08ab08",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "set buttons",
+        "func": "const questions = Object.keys(flow.get(\"questions\"));\nlet buttons = [];\nfor (let i = 0; i < questions.length; i++) {\n    buttons.push({ type: 'newline' });\n    buttons.push({ type: 'keyboardButton', label: questions[i] })\n}\nmsg.payload = { \n    \"type\": \"buttons\",\n    \"content\": \"Вибери питання на яке хочеш отримати відповідь\",\n    \"chatId\": msg.payload.chatId,\n    \"buttons\": buttons\n    }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 640,
+        "wires": [
+            [
+                "60263b02fe0a7c71"
+            ]
+        ]
+    },
+    {
+        "id": "e5df729bd1882412",
+        "type": "inject",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 420,
+        "wires": [
+            [
+                "584daa1703e4fb13"
+            ]
+        ]
+    },
+    {
+        "id": "584daa1703e4fb13",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "set questions ",
+        "func": "msg.questions = {\n    \"a\":\"a1\",\n    \"b\":\"b1\",\n    \"c\":\"c1\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 420,
+        "wires": [
+            [
+                "9eee9774e7dd440e"
+            ]
+        ]
+    },
+    {
+        "id": "9eee9774e7dd440e",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set to flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "questions",
+                "pt": "msg",
+                "to": "questions",
+                "tot": "flow",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "67adf457139ad431",
+        "type": "link in",
+        "z": "ef8f9b32dc650502",
+        "name": "/telegramSeder",
+        "links": [
+            "60263b02fe0a7c71",
+            "4e6ba142399aabc8",
+            "cf32863c571a6118",
+            "b96b9e7155c9a0da",
+            "b652a5b7ed33e00c",
+            "2beae5b7bba77a81"
+        ],
+        "x": 1805,
+        "y": 220,
+        "wires": [
+            [
+                "6bc1c3172ea348be"
+            ]
+        ]
+    },
+    {
+        "id": "60263b02fe0a7c71",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "67adf457139ad431"
+        ],
+        "x": 765,
+        "y": 640,
         "wires": []
+    },
+    {
+        "id": "4e6ba142399aabc8",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "67adf457139ad431"
+        ],
+        "x": 885,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "cf32863c571a6118",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "67adf457139ad431"
+        ],
+        "x": 855,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "b96b9e7155c9a0da",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "67adf457139ad431"
+        ],
+        "x": 1605,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "b652a5b7ed33e00c",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "67adf457139ad431"
+        ],
+        "x": 1435,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "ab0e068ac6c0b1cb",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "set data to env flow",
+        "info": "",
+        "x": 130,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d5d427bdd19a2e0a",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "set menu",
+        "info": "",
+        "x": 100,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c0ef40219fc3b113",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "handle message ",
+        "info": "",
+        "x": 120,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "4925551eac952776",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "handle button",
+        "info": "",
+        "x": 150,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "45b28a3dcc0e4f26",
+        "type": "switch",
+        "z": "ef8f9b32dc650502",
+        "name": "is right button",
+        "property": "isRight",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 660,
+        "y": 940,
+        "wires": [
+            [
+                "4fb7143d66ae6a1b"
+            ],
+            [
+                "67ae734297b62f2b"
+            ]
+        ]
+    },
+    {
+        "id": "20a71a061e8c5f20",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 6",
+        "mode": "link",
+        "links": [
+            "a8bb9967c68c74c2"
+        ],
+        "x": 555,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "a8bb9967c68c74c2",
+        "type": "link in",
+        "z": "ef8f9b32dc650502",
+        "name": "/handleButton",
+        "links": [
+            "20a71a061e8c5f20",
+            "262204abeb1fbbf8"
+        ],
+        "x": 165,
+        "y": 940,
+        "wires": [
+            [
+                "fc7f91448ed5ce03"
+            ]
+        ]
+    },
+    {
+        "id": "4fb7143d66ae6a1b",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "message": [
+            {
+                "message": "вірна кнопка"
+            }
+        ],
+        "language": "none",
+        "x": 850,
+        "y": 920,
+        "wires": [
+            [
+                "2beae5b7bba77a81"
+            ]
+        ]
+    },
+    {
+        "id": "2beae5b7bba77a81",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 7",
+        "mode": "link",
+        "links": [
+            "67adf457139ad431"
+        ],
+        "x": 1025,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "67ae734297b62f2b",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "message": [
+            {
+                "message": "НЕвірна кнопка"
+            }
+        ],
+        "language": "none",
+        "x": 850,
+        "y": 980,
+        "wires": [
+            [
+                "2beae5b7bba77a81"
+            ]
+        ]
+    },
+    {
+        "id": "fc7f91448ed5ce03",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "is right Button",
+        "func": "msg.isRight = Object.keys(flow.get(\"questions\")).includes(msg.payload.content);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 940,
+        "wires": [
+            [
+                "45b28a3dcc0e4f26"
+            ]
+        ]
     }
 ]
