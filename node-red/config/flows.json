@@ -170,7 +170,9 @@
             [
                 "9601e27c5c08ab08"
             ],
-            [],
+            [
+                "7c4bae2579650d46"
+            ],
             [
                 "bcbf3adc5918dcb6"
             ],
@@ -197,7 +199,7 @@
         ],
         "language": "none",
         "x": 210,
-        "y": 1160,
+        "y": 1420,
         "wires": [
             [
                 "b8cc7e425cdc6abf"
@@ -215,7 +217,7 @@
         "errorOutput": false,
         "outputs": 1,
         "x": 370,
-        "y": 1160,
+        "y": 1420,
         "wires": [
             [
                 "9acfe5a74488b916"
@@ -230,7 +232,7 @@
         "parseType": "number-integer",
         "parseVariable": "cabinet",
         "x": 580,
-        "y": 1160,
+        "y": 1420,
         "wires": [
             [
                 "de9e296e576e16d9"
@@ -271,7 +273,7 @@
         "finalize": "",
         "libs": [],
         "x": 960,
-        "y": 1120,
+        "y": 1380,
         "wires": [
             [
                 "d97158d544f83b7c"
@@ -299,7 +301,7 @@
         "repair": false,
         "outputs": 2,
         "x": 780,
-        "y": 1140,
+        "y": 1400,
         "wires": [
             [
                 "14dcac47d6fa8938"
@@ -321,7 +323,7 @@
         ],
         "language": "none",
         "x": 960,
-        "y": 1200,
+        "y": 1460,
         "wires": [
             [
                 "b652a5b7ed33e00c"
@@ -340,7 +342,7 @@
         ],
         "language": "none",
         "x": 1140,
-        "y": 1120,
+        "y": 1380,
         "wires": [
             [
                 "b96b9e7155c9a0da"
@@ -415,7 +417,7 @@
         "type": "function",
         "z": "ef8f9b32dc650502",
         "name": "set data",
-        "func": "msg.questions = {\n    \"a\":\"a1\",\n    \"b\":\"b1\",\n    \"c\":\"c1\"\n};\nmsg.schedule = \"https://www.nmu.org.ua/ua/content/student_life/students/schedule/rasps/sched_fit_2%20sem_2023.xls\";\nreturn msg;",
+        "func": "msg.questions = {\n    \"a\":\"a1\",\n    \"b\":\"b1\",\n    \"c\":\"c1\"\n};\nmsg.curators = {\n    '123-20-1': 'доц. Шедловський Ігор Анатолійович',\n    '123-20-2': 'доц. Шедловський Ігор Анатолійович',\n    '123-20ск-1': 'доц. Каштан Віта Юріївна',\n    '126-20-1': 'ас. Обиденний Євгеній Олександрович',\n    '126-20з-1': 'ас. Обиденний Євгеній Олександрович'\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -450,6 +452,14 @@
                 "to": "schedule",
                 "tot": "msg",
                 "dc": true
+            },
+            {
+                "t": "set",
+                "p": "curators",
+                "pt": "flow",
+                "to": "curators",
+                "tot": "msg",
+                "dc": true
             }
         ],
         "action": "",
@@ -477,7 +487,8 @@
             "b96b9e7155c9a0da",
             "b652a5b7ed33e00c",
             "2beae5b7bba77a81",
-            "4d98901a1e6fbe96"
+            "4d98901a1e6fbe96",
+            "0a2a562c5bbb492f"
         ],
         "x": 1035,
         "y": 660,
@@ -540,7 +551,7 @@
             "3ee8ad858222412f"
         ],
         "x": 1245,
-        "y": 1120,
+        "y": 1380,
         "wires": []
     },
     {
@@ -554,7 +565,7 @@
             "3ee8ad858222412f"
         ],
         "x": 1105,
-        "y": 1200,
+        "y": 1460,
         "wires": []
     },
     {
@@ -564,7 +575,7 @@
         "name": "set data to env flow",
         "info": "",
         "x": 130,
-        "y": 260,
+        "y": 380,
         "wires": []
     },
     {
@@ -574,7 +585,7 @@
         "name": "set menu",
         "info": "",
         "x": 100,
-        "y": 380,
+        "y": 260,
         "wires": []
     },
     {
@@ -593,8 +604,8 @@
         "z": "ef8f9b32dc650502",
         "name": "handle button",
         "info": "",
-        "x": 90,
-        "y": 1440,
+        "x": 110,
+        "y": 1560,
         "wires": []
     },
     {
@@ -615,8 +626,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 600,
-        "y": 1500,
+        "x": 620,
+        "y": 1620,
         "wires": [
             [
                 "0005f3de40515888"
@@ -648,8 +659,8 @@
             "20a71a061e8c5f20",
             "262204abeb1fbbf8"
         ],
-        "x": 105,
-        "y": 1500,
+        "x": 125,
+        "y": 1620,
         "wires": [
             [
                 "fc7f91448ed5ce03"
@@ -666,8 +677,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 1125,
-        "y": 1500,
+        "x": 1145,
+        "y": 1620,
         "wires": []
     },
     {
@@ -681,8 +692,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 1500,
+        "x": 340,
+        "y": 1620,
         "wires": [
             [
                 "45b28a3dcc0e4f26"
@@ -713,8 +724,8 @@
         "name": "remove buttons and send error",
         "buttons": [],
         "message": "На це питання я не знаю відповіді, виконай команду /help, щоб переглянути поточний список питань",
-        "x": 870,
-        "y": 1540,
+        "x": 890,
+        "y": 1660,
         "wires": [
             [
                 "2beae5b7bba77a81"
@@ -732,8 +743,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 830,
-        "y": 1480,
+        "x": 850,
+        "y": 1600,
         "wires": [
             [
                 "2beae5b7bba77a81"
@@ -763,7 +774,7 @@
             "22d93b6af0e3e632"
         ],
         "x": 85,
-        "y": 1160,
+        "y": 1420,
         "wires": [
             [
                 "ef41fc39b74f7085"
@@ -777,7 +788,7 @@
         "name": "where is",
         "info": "",
         "x": 120,
-        "y": 1080,
+        "y": 1340,
         "wires": []
     },
     {
@@ -789,7 +800,7 @@
             "bcbf3adc5918dcb6"
         ],
         "x": 95,
-        "y": 980,
+        "y": 1240,
         "wires": [
             [
                 "c02552101f3f29d3"
@@ -810,20 +821,6 @@
         "wires": []
     },
     {
-        "id": "745548923030d516",
-        "type": "chatbot-document",
-        "z": "ef8f9b32dc650502",
-        "name": "send schedule",
-        "filename": "",
-        "document": "https://www.nmu.org.ua/ua/content/student_life/students/schedule/rasps/sched_fit_2%20sem_2023.xls",
-        "caption": "Розклад",
-        "x": 460,
-        "y": 1060,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "4d98901a1e6fbe96",
         "type": "link out",
         "z": "ef8f9b32dc650502",
@@ -834,7 +831,7 @@
             "3ee8ad858222412f"
         ],
         "x": 625,
-        "y": 980,
+        "y": 1240,
         "wires": []
     },
     {
@@ -858,7 +855,7 @@
         "to": "",
         "reg": false,
         "x": 230,
-        "y": 980,
+        "y": 1240,
         "wires": [
             [
                 "f015a4dc71559b8d"
@@ -872,16 +869,390 @@
         "name": "",
         "message": [
             {
-                "message": "https://www.nmu.org.ua/ua/content/student_life/students/schedule/rasps/sched_fit_2%20sem_2023.xls"
+                "message": "{{schedule}}\nРозклад"
             }
         ],
         "language": "none",
         "x": 430,
-        "y": 980,
+        "y": 1240,
         "wires": [
             [
                 "4d98901a1e6fbe96"
             ]
         ]
+    },
+    {
+        "id": "2bc212af98739a66",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "{{{api}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "7f7b25dcdd2f1faf"
+            ]
+        ]
+    },
+    {
+        "id": "fd8190b2a0f9fa87",
+        "type": "inject",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "43200",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "1cdde8d745fe1abd"
+            ]
+        ]
+    },
+    {
+        "id": "6e6ba016fcb210b6",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "schedule",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7f7b25dcdd2f1faf",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "function 1",
+        "func": "const regex = /\\/rasps\\/sched_fit.*\\.xls/gm;\nmsg.link = msg.api + msg.payload.match(regex)[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 140,
+        "wires": [
+            [
+                "46fab0ef50158d41"
+            ]
+        ]
+    },
+    {
+        "id": "1cdde8d745fe1abd",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set nmu API",
+        "rules": [
+            {
+                "t": "set",
+                "p": "api",
+                "pt": "msg",
+                "to": "https://www.nmu.org.ua/ua/content/student_life/students/schedule",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "2bc212af98739a66"
+            ]
+        ]
+    },
+    {
+        "id": "4c4817f12d6e7149",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "set schedule to flow",
+        "info": "",
+        "x": 110,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "46fab0ef50158d41",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set to flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "schedule",
+                "pt": "flow",
+                "to": "link",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 140,
+        "wires": [
+            [
+                "6e6ba016fcb210b6"
+            ]
+        ]
+    },
+    {
+        "id": "d72d61c576ecd51f",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "schedule",
+        "info": "",
+        "x": 120,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "fcc970d53d7fe96e",
+        "type": "link in",
+        "z": "ef8f9b32dc650502",
+        "name": "/curator",
+        "links": [
+            "7c4bae2579650d46"
+        ],
+        "x": 85,
+        "y": 1100,
+        "wires": [
+            [
+                "7315466db17ead42"
+            ]
+        ]
+    },
+    {
+        "id": "7c4bae2579650d46",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 11",
+        "mode": "link",
+        "links": [
+            "fcc970d53d7fe96e"
+        ],
+        "x": 585,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "5fa41b2097b35ace",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "send curator",
+        "message": [
+            {
+                "message": "Твій куратор - {{curator}}"
+            }
+        ],
+        "language": "none",
+        "x": 1170,
+        "y": 1140,
+        "wires": [
+            [
+                "0a2a562c5bbb492f"
+            ]
+        ]
+    },
+    {
+        "id": "0a2a562c5bbb492f",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 12",
+        "mode": "link",
+        "links": [
+            "67adf457139ad431",
+            "3ee8ad858222412f"
+        ],
+        "x": 1345,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "7315466db17ead42",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "message": [
+            {
+                "message": "Введи назву групи"
+            }
+        ],
+        "language": "none",
+        "x": 210,
+        "y": 1100,
+        "wires": [
+            [
+                "d3e8459a15f87e03"
+            ]
+        ]
+    },
+    {
+        "id": "d3e8459a15f87e03",
+        "type": "chatbot-telegram-send",
+        "z": "ef8f9b32dc650502",
+        "bot": "2f28686888d6bd2a",
+        "botProduction": "",
+        "track": true,
+        "passThrough": false,
+        "errorOutput": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 1100,
+        "wires": [
+            [
+                "596cfe3058c46cc1"
+            ]
+        ]
+    },
+    {
+        "id": "596cfe3058c46cc1",
+        "type": "chatbot-parse",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "parseType": "string",
+        "parseVariable": "group",
+        "x": 580,
+        "y": 1100,
+        "wires": [
+            [
+                "7f22da732a53b06c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7f22da732a53b06c",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "set curator name",
+        "func": "let group = msg.chat().get(\"group\")\nmsg.curators = flow.get(\"curators\");\nmsg.curator = msg.curators[group.toLowerCase()]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 1100,
+        "wires": [
+            [
+                "d9a61467c7167b3c",
+                "1f11dcdfed2c4432"
+            ]
+        ]
+    },
+    {
+        "id": "d9a61467c7167b3c",
+        "type": "switch",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "property": "curator",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1010,
+        "y": 1100,
+        "wires": [
+            [
+                "58454ce51bab29ab"
+            ],
+            [
+                "5fa41b2097b35ace"
+            ]
+        ]
+    },
+    {
+        "id": "58454ce51bab29ab",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "no curator",
+        "message": [
+            {
+                "message": "За групою \"{{group}}\" нічого не знайдено"
+            }
+        ],
+        "language": "none",
+        "x": 1170,
+        "y": 1060,
+        "wires": [
+            [
+                "0a2a562c5bbb492f"
+            ]
+        ]
+    },
+    {
+        "id": "1f11dcdfed2c4432",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "curator",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "820de7d814aeb48a",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "curator",
+        "info": "",
+        "x": 130,
+        "y": 1040,
+        "wires": []
     }
 ]
