@@ -49,23 +49,24 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 0,
-        "x": 1970,
-        "y": 220,
+        "x": 1200,
+        "y": 660,
         "wires": []
     },
     {
         "id": "11299c98bba5c8d0",
         "type": "debug",
         "z": "ef8f9b32dc650502",
-        "name": "debug 1",
+        "name": "inbound message",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 320,
+        "x": 350,
         "y": 540,
         "wires": []
     },
@@ -164,13 +165,15 @@
         "y": 620,
         "wires": [
             [
-                "ef41fc39b74f7085"
+                "0ec9e83584699c2b"
             ],
             [
                 "9601e27c5c08ab08"
             ],
             [],
-            [],
+            [
+                "bcbf3adc5918dcb6"
+            ],
             [
                 "6207f6baa19bfda1"
             ],
@@ -193,8 +196,8 @@
             }
         ],
         "language": "none",
-        "x": 550,
-        "y": 580,
+        "x": 210,
+        "y": 1160,
         "wires": [
             [
                 "b8cc7e425cdc6abf"
@@ -211,8 +214,8 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 1,
-        "x": 730,
-        "y": 580,
+        "x": 370,
+        "y": 1160,
         "wires": [
             [
                 "9acfe5a74488b916"
@@ -226,8 +229,8 @@
         "name": "",
         "parseType": "number-integer",
         "parseVariable": "cabinet",
-        "x": 940,
-        "y": 580,
+        "x": 580,
+        "y": 1160,
         "wires": [
             [
                 "de9e296e576e16d9"
@@ -267,8 +270,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1320,
-        "y": 540,
+        "x": 960,
+        "y": 1120,
         "wires": [
             [
                 "d97158d544f83b7c"
@@ -295,8 +298,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1140,
-        "y": 540,
+        "x": 780,
+        "y": 1140,
         "wires": [
             [
                 "14dcac47d6fa8938"
@@ -317,8 +320,8 @@
             }
         ],
         "language": "none",
-        "x": 1300,
-        "y": 600,
+        "x": 960,
+        "y": 1200,
         "wires": [
             [
                 "b652a5b7ed33e00c"
@@ -336,8 +339,8 @@
             }
         ],
         "language": "none",
-        "x": 1500,
-        "y": 540,
+        "x": 1140,
+        "y": 1120,
         "wires": [
             [
                 "b96b9e7155c9a0da"
@@ -364,14 +367,14 @@
         "type": "function",
         "z": "ef8f9b32dc650502",
         "name": "set buttons",
-        "func": "const questions = Object.keys(flow.get(\"questions\"));\nlet buttons = [];\nfor (let i = 0; i < questions.length; i++) {\n    buttons.push({ type: 'newline' });\n    buttons.push({ type: 'keyboardButton', label: questions[i] })\n}\nmsg.payload = { \n    \"type\": \"buttons\",\n    \"content\": \"Вибери питання на яке хочеш отримати відповідь\",\n    \"chatId\": msg.payload.chatId,\n    \"buttons\": buttons\n    }\nreturn msg;",
+        "func": "const questions = Object.keys(flow.get(\"questions\"));\nlet buttons = [];\nfor (let i = 0; i < questions.length; i++) {\n    buttons.push({ type: 'newline' });\n    buttons.push({ type: 'keyboardButton', label: questions[i] });\n}\nmsg.payload = { \n    \"type\": \"buttons\",\n    \"content\": \"Вибери питання на яке хочеш отримати відповідь\",\n    \"chatId\": msg.payload.chatId,\n    \"buttons\": buttons\n    }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 610,
-        "y": 640,
+        "y": 580,
         "wires": [
             [
                 "60263b02fe0a7c71"
@@ -411,14 +414,14 @@
         "id": "584daa1703e4fb13",
         "type": "function",
         "z": "ef8f9b32dc650502",
-        "name": "set questions ",
-        "func": "msg.questions = {\n    \"a\":\"a1\",\n    \"b\":\"b1\",\n    \"c\":\"c1\"\n}\nreturn msg;",
+        "name": "set data",
+        "func": "msg.questions = {\n    \"a\":\"a1\",\n    \"b\":\"b1\",\n    \"c\":\"c1\"\n};\nmsg.schedule = \"https://www.nmu.org.ua/ua/content/student_life/students/schedule/rasps/sched_fit_2%20sem_2023.xls\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
+        "x": 320,
         "y": 420,
         "wires": [
             [
@@ -435,9 +438,17 @@
             {
                 "t": "set",
                 "p": "questions",
-                "pt": "msg",
+                "pt": "flow",
                 "to": "questions",
-                "tot": "flow",
+                "tot": "msg",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "schedule",
+                "pt": "flow",
+                "to": "schedule",
+                "tot": "msg",
                 "dc": true
             }
         ],
@@ -449,7 +460,9 @@
         "x": 550,
         "y": 420,
         "wires": [
-            []
+            [
+                "7d3695e449ad3bb6"
+            ]
         ]
     },
     {
@@ -463,10 +476,11 @@
             "cf32863c571a6118",
             "b96b9e7155c9a0da",
             "b652a5b7ed33e00c",
-            "2beae5b7bba77a81"
+            "2beae5b7bba77a81",
+            "4d98901a1e6fbe96"
         ],
-        "x": 1805,
-        "y": 220,
+        "x": 1035,
+        "y": 660,
         "wires": [
             [
                 "6bc1c3172ea348be"
@@ -480,10 +494,11 @@
         "name": "link out 1",
         "mode": "link",
         "links": [
-            "67adf457139ad431"
+            "67adf457139ad431",
+            "3ee8ad858222412f"
         ],
-        "x": 765,
-        "y": 640,
+        "x": 745,
+        "y": 580,
         "wires": []
     },
     {
@@ -493,7 +508,8 @@
         "name": "link out 2",
         "mode": "link",
         "links": [
-            "67adf457139ad431"
+            "67adf457139ad431",
+            "3ee8ad858222412f"
         ],
         "x": 885,
         "y": 780,
@@ -506,7 +522,8 @@
         "name": "link out 3",
         "mode": "link",
         "links": [
-            "67adf457139ad431"
+            "67adf457139ad431",
+            "3ee8ad858222412f"
         ],
         "x": 855,
         "y": 680,
@@ -519,10 +536,11 @@
         "name": "link out 4",
         "mode": "link",
         "links": [
-            "67adf457139ad431"
+            "67adf457139ad431",
+            "3ee8ad858222412f"
         ],
-        "x": 1605,
-        "y": 540,
+        "x": 1245,
+        "y": 1120,
         "wires": []
     },
     {
@@ -532,10 +550,11 @@
         "name": "link out 5",
         "mode": "link",
         "links": [
-            "67adf457139ad431"
+            "67adf457139ad431",
+            "3ee8ad858222412f"
         ],
-        "x": 1435,
-        "y": 600,
+        "x": 1105,
+        "y": 1200,
         "wires": []
     },
     {
@@ -574,8 +593,8 @@
         "z": "ef8f9b32dc650502",
         "name": "handle button",
         "info": "",
-        "x": 150,
-        "y": 880,
+        "x": 90,
+        "y": 1440,
         "wires": []
     },
     {
@@ -596,14 +615,14 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 660,
-        "y": 940,
+        "x": 600,
+        "y": 1500,
         "wires": [
             [
-                "4fb7143d66ae6a1b"
+                "0005f3de40515888"
             ],
             [
-                "67ae734297b62f2b"
+                "cf3b71e5c6f781ea"
             ]
         ]
     },
@@ -629,30 +648,11 @@
             "20a71a061e8c5f20",
             "262204abeb1fbbf8"
         ],
-        "x": 165,
-        "y": 940,
+        "x": 105,
+        "y": 1500,
         "wires": [
             [
                 "fc7f91448ed5ce03"
-            ]
-        ]
-    },
-    {
-        "id": "4fb7143d66ae6a1b",
-        "type": "chatbot-message",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "message": [
-            {
-                "message": "вірна кнопка"
-            }
-        ],
-        "language": "none",
-        "x": 850,
-        "y": 920,
-        "wires": [
-            [
-                "2beae5b7bba77a81"
             ]
         ]
     },
@@ -663,30 +663,12 @@
         "name": "link out 7",
         "mode": "link",
         "links": [
-            "67adf457139ad431"
+            "67adf457139ad431",
+            "3ee8ad858222412f"
         ],
-        "x": 1025,
-        "y": 940,
+        "x": 1125,
+        "y": 1500,
         "wires": []
-    },
-    {
-        "id": "67ae734297b62f2b",
-        "type": "chatbot-message",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "message": [
-            {
-                "message": "НЕвірна кнопка"
-            }
-        ],
-        "language": "none",
-        "x": 850,
-        "y": 980,
-        "wires": [
-            [
-                "2beae5b7bba77a81"
-            ]
-        ]
     },
     {
         "id": "fc7f91448ed5ce03",
@@ -699,11 +681,206 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 940,
+        "x": 320,
+        "y": 1500,
         "wires": [
             [
                 "45b28a3dcc0e4f26"
+            ]
+        ]
+    },
+    {
+        "id": "7d3695e449ad3bb6",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "set quetions",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "cf3b71e5c6f781ea",
+        "type": "chatbot-ask",
+        "z": "ef8f9b32dc650502",
+        "name": "remove buttons and send error",
+        "buttons": [],
+        "message": "На це питання я не знаю відповіді, виконай команду /help, щоб переглянути поточний список питань",
+        "x": 870,
+        "y": 1540,
+        "wires": [
+            [
+                "2beae5b7bba77a81"
+            ]
+        ]
+    },
+    {
+        "id": "0005f3de40515888",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "send answer",
+        "func": "msg.payload = { \n    \"type\": \"message\",\n    \"content\": flow.get(\"questions\")[msg.payload.content],\n    \"chatId\": msg.payload.chatId,\n    \"inbound\": false,\n    \"fallback\": null \n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 1480,
+        "wires": [
+            [
+                "2beae5b7bba77a81"
+            ]
+        ]
+    },
+    {
+        "id": "0ec9e83584699c2b",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 8",
+        "mode": "link",
+        "links": [
+            "05887e897f7af058"
+        ],
+        "x": 485,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "05887e897f7af058",
+        "type": "link in",
+        "z": "ef8f9b32dc650502",
+        "name": "/where_is",
+        "links": [
+            "0ec9e83584699c2b",
+            "22d93b6af0e3e632"
+        ],
+        "x": 85,
+        "y": 1160,
+        "wires": [
+            [
+                "ef41fc39b74f7085"
+            ]
+        ]
+    },
+    {
+        "id": "999e3fc17ebd6627",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "where is",
+        "info": "",
+        "x": 120,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "fbc920e4941c6344",
+        "type": "link in",
+        "z": "ef8f9b32dc650502",
+        "name": "/schedule",
+        "links": [
+            "bcbf3adc5918dcb6"
+        ],
+        "x": 95,
+        "y": 980,
+        "wires": [
+            [
+                "c02552101f3f29d3"
+            ]
+        ]
+    },
+    {
+        "id": "bcbf3adc5918dcb6",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 9",
+        "mode": "link",
+        "links": [
+            "fbc920e4941c6344"
+        ],
+        "x": 535,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "745548923030d516",
+        "type": "chatbot-document",
+        "z": "ef8f9b32dc650502",
+        "name": "send schedule",
+        "filename": "",
+        "document": "https://www.nmu.org.ua/ua/content/student_life/students/schedule/rasps/sched_fit_2%20sem_2023.xls",
+        "caption": "Розклад",
+        "x": 460,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d98901a1e6fbe96",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "link out 10",
+        "mode": "link",
+        "links": [
+            "67adf457139ad431",
+            "3ee8ad858222412f"
+        ],
+        "x": 625,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "c02552101f3f29d3",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set schedule",
+        "rules": [
+            {
+                "t": "set",
+                "p": "schedule",
+                "pt": "msg",
+                "to": "schedule",
+                "tot": "flow",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 980,
+        "wires": [
+            [
+                "f015a4dc71559b8d"
+            ]
+        ]
+    },
+    {
+        "id": "f015a4dc71559b8d",
+        "type": "chatbot-message",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "message": [
+            {
+                "message": "https://www.nmu.org.ua/ua/content/student_life/students/schedule/rasps/sched_fit_2%20sem_2023.xls"
+            }
+        ],
+        "language": "none",
+        "x": 430,
+        "y": 980,
+        "wires": [
+            [
+                "4d98901a1e6fbe96"
             ]
         ]
     }
