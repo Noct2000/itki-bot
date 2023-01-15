@@ -25,6 +25,31 @@
         "chatbotId": ""
     },
     {
+        "id": "962bcd24965c1c6c",
+        "type": "telegram bot",
+        "botname": "ITKI_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "none",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
         "id": "d8f1225757fcd093",
         "type": "chatbot-telegram-receive",
         "z": "ef8f9b32dc650502",
@@ -417,7 +442,7 @@
         "type": "function",
         "z": "ef8f9b32dc650502",
         "name": "set data",
-        "func": "msg.questions = {\n    \"a\":\"a1\",\n    \"b\":\"b1\",\n    \"c\":\"c1\"\n};\nmsg.curators = {\n    '123-20-1': 'доц. Шедловський Ігор Анатолійович',\n    '123-20-2': 'доц. Шедловський Ігор Анатолійович',\n    '123-20ск-1': 'доц. Каштан Віта Юріївна',\n    '126-20-1': 'ас. Обиденний Євгеній Олександрович',\n    '126-20з-1': 'ас. Обиденний Євгеній Олександрович'\n};\nreturn msg;",
+        "func": "msg.questions = {\n    \"a\":\"a1\",\n    \"b\":\"b1\",\n    \"c\":\"c1\"\n};\nmsg.curators = {\n    '123-20-1': 'доц. Шедловський Ігор Анатолійович',\n    '123-20-2': 'доц. Шедловський Ігор Анатолійович',\n    '123-20ск-1': 'доц. Каштан Віта Юріївна',\n    '126-20-1': 'ас. Обиденний Євгеній Олександрович',\n    '126-20з-1': 'ас. Обиденний Євгеній Олександрович'\n};\nmsg.users = [\n    634333799,\n    5821982965\n];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -460,6 +485,14 @@
                 "to": "curators",
                 "tot": "msg",
                 "dc": true
+            },
+            {
+                "t": "set",
+                "p": "users",
+                "pt": "flow",
+                "to": "users",
+                "tot": "msg",
+                "dc": true
             }
         ],
         "action": "",
@@ -488,7 +521,8 @@
             "b652a5b7ed33e00c",
             "2beae5b7bba77a81",
             "4d98901a1e6fbe96",
-            "0a2a562c5bbb492f"
+            "0a2a562c5bbb492f",
+            "8e1c031c62a3223c"
         ],
         "x": 1035,
         "y": 660,
@@ -877,7 +911,8 @@
         "y": 1240,
         "wires": [
             [
-                "4d98901a1e6fbe96"
+                "4d98901a1e6fbe96",
+                "c72b7dfe1420d011"
             ]
         ]
     },
@@ -1253,6 +1288,209 @@
         "info": "",
         "x": 130,
         "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "a8af96b190c3066d",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "function 2",
+        "func": "msg.isEnd = msg.counter === msg.users.length;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 1920,
+        "wires": [
+            [
+                "5614f5f8d3c1e76f"
+            ]
+        ]
+    },
+    {
+        "id": "c72b7dfe1420d011",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "text",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "2c3f50270919b2da",
+        "type": "telegram sender",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "bot": "962bcd24965c1c6c",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1140,
+        "y": 1920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "edb78e7dd11a0944",
+        "type": "http in",
+        "z": "ef8f9b32dc650502",
+        "name": "sendMessagePost",
+        "url": "/sendMessage",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 1920,
+        "wires": [
+            [
+                "a97c566de095a923",
+                "15e66b75ed24b9b5",
+                "5af06f2280e2872b"
+            ]
+        ]
+    },
+    {
+        "id": "a97c566de095a923",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "send broadcast",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "15e66b75ed24b9b5",
+        "type": "http response",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 340,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "5af06f2280e2872b",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "users",
+                "pt": "msg",
+                "to": "users",
+                "tot": "flow",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "counter",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 1920,
+        "wires": [
+            [
+                "a8af96b190c3066d"
+            ]
+        ]
+    },
+    {
+        "id": "5614f5f8d3c1e76f",
+        "type": "switch",
+        "z": "ef8f9b32dc650502",
+        "name": "",
+        "property": "isEnd",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 790,
+        "y": 1920,
+        "wires": [
+            [
+                "4159abbb4706a0b2"
+            ]
+        ]
+    },
+    {
+        "id": "4159abbb4706a0b2",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "function 3",
+        "func": "msg.payload.chatId = msg.users[msg.counter];\nmsg.counter = msg.counter + 1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 1920,
+        "wires": [
+            [
+                "2c3f50270919b2da",
+                "b0176beda40a5517",
+                "a8af96b190c3066d"
+            ]
+        ]
+    },
+    {
+        "id": "b0176beda40a5517",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "send to user",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "19c040192160dc07",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "broadcast message",
+        "info": "",
+        "x": 130,
+        "y": 1800,
         "wires": []
     }
 ]
