@@ -1,0 +1,16 @@
+version: '3'
+services:
+  # Node RED
+  node-red:
+    container_name: node-red
+    image: node-red
+    environment:
+      - TZ=Europe/Kiev
+    build: node-red/.
+    ports:
+      - "1880:1880"
+    env_file:
+      - .env
+    volumes:
+      - ./node-red/config:/root/.node-red:delegated
+      - /root/.node-red/node_modules

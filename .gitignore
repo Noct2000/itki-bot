@@ -29,8 +29,9 @@
 # Ignore env config
 .env
 
-# Ignore node_modules
-node_modules
+# Node-RED
+node-red/config/node_modules
+node-red/config/.*
 
 temp
 deploy_logs.json
