@@ -1,3 +1,9 @@
 databaseChangeLog:
   - include:
       file: /db/changelog/changes/create-question-table.sql
+  - include:
+      file: /db/changelog/changes/create-answer-table.sql
+  - include:
+      file: /db/changelog/changes/add-answer-id-column-to-question.sql
+  - include:
+      file: /db/changelog/changes/add-question-answer-constraint.sql
