@@ -1,6 +1,6 @@
 --liquibase formatted sql
 --changeset <olehkvasha>:<create-question-table>
-CREATE TABLE IF NOT EXISTS question
+CREATE TABLE IF NOT EXISTS public.question
 (
     id bigint NOT NULL,
     text varchar(500),

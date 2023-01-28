@@ -7,3 +7,9 @@ databaseChangeLog:
       file: /db/changelog/changes/add-answer-id-column-to-question.sql
   - include:
       file: /db/changelog/changes/add-question-answer-constraint.sql
+  - include:
+      file: /db/changelog/changes/create-client-table.sql
+  - include:
+      file: /db/changelog/changes/create-role-table.sql
+  - include:
+      file: /db/changelog/changes/create-client-role-table.sql
