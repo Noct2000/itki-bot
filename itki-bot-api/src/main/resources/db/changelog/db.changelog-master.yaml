@@ -13,3 +13,7 @@ databaseChangeLog:
       file: /db/changelog/changes/create-role-table.sql
   - include:
       file: /db/changelog/changes/create-client-role-table.sql
+  - include:
+      file: /db/changelog/changes/add-client-sequence.sql
+  - include:
+      file: /db/changelog/changes/add-first-client-admin-row-to-client-table.sql
