@@ -1,6 +1,6 @@
 --liquibase formatted sql
---changeset <olehkvasha>:<create-client-table>
-CREATE TABLE IF NOT EXISTS public.client
+--changeset <olehkvasha>:<create-user-table>
+CREATE TABLE IF NOT EXISTS public.user
 (
     id bigint NOT NULL,
     login character varying(256) NOT NULL,
@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS public.client
     CONSTRAINT operator_pk PRIMARY KEY (id)
     );
 
---rollback DROP TABLE client;
+--rollback DROP TABLE user;

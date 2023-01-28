@@ -8,12 +8,12 @@ databaseChangeLog:
   - include:
       file: /db/changelog/changes/add-question-answer-constraint.sql
   - include:
-      file: /db/changelog/changes/create-client-table.sql
+      file: /db/changelog/changes/create-user-table.sql
   - include:
       file: /db/changelog/changes/create-role-table.sql
   - include:
-      file: /db/changelog/changes/create-client-role-table.sql
+      file: /db/changelog/changes/create-user-role-table.sql
   - include:
-      file: /db/changelog/changes/add-client-sequence.sql
+      file: /db/changelog/changes/add-user-sequence.sql
   - include:
-      file: /db/changelog/changes/add-first-client-admin-row-to-client-table.sql
+      file: /db/changelog/changes/add-first-user-admin-row-to-user-table.sql
