@@ -1,13 +1,12 @@
 package com.itki.api.dto;
 
-import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Data
 public class LoginRequestDto {
-    @NotBlank
-    private String login;
-    @NotBlank
-    private String password;
+  @NotBlank
+  private String login;
+  @NotBlank
+  private String password;
 }

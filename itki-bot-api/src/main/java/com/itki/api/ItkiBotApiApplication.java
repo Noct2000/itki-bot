@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ItkiBotApiApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(ItkiBotApiApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(ItkiBotApiApplication.class, args);
+  }
 }

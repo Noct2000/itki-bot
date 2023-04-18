@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SuccessController {
-    @GetMapping("/success")
-    public String success() {
-        return "success";
-    }
+  @GetMapping("/success")
+  public String success() {
+    return "success";
+  }
 }
