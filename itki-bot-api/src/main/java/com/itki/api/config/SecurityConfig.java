@@ -4,6 +4,7 @@ import com.itki.api.jwt.JwtConfigurer;
 import com.itki.api.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,6 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().authorizeRequests()
       .antMatchers("/success").hasAnyRole("ADMIN", "USER")
+      .antMatchers(HttpMethod.GET, "/questions").hasAnyRole("ADMIN", "USER")
+      .antMatchers(HttpMethod.POST, "/questions").hasRole("ADMIN")
+      .antMatchers(HttpMethod.DELETE, "/questions/**").hasRole("ADMIN")
       .antMatchers("/login").permitAll()
       .anyRequest().authenticated()
       .and()

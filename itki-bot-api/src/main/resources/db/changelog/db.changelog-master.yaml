@@ -17,3 +17,7 @@ databaseChangeLog:
       file: /db/changelog/changes/add-user-sequence.sql
   - include:
       file: /db/changelog/changes/add-first-user-admin-row-to-user-table.sql
+  - include:
+      file: /db/changelog/changes/add-answer-sequence.sql
+  - include:
+      file: /db/changelog/changes/add-question-sequence.sql

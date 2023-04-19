@@ -27,4 +27,9 @@ public abstract class CrudServiceImpl<T> implements CrudService<T> {
   public T save(T entity) {
     return repository.save(entity);
   }
+
+  @Override
+  public void deleteById(Long id) {
+    repository.deleteById(id);
+  }
 }

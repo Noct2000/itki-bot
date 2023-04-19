@@ -8,4 +8,6 @@ public interface CrudService<T> {
   List<T> findAll();
 
   T save(T entity);
+
+  void deleteById(Long id);
 }
