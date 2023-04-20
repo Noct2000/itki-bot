@@ -32,4 +32,9 @@ public abstract class CrudServiceImpl<T> implements CrudService<T> {
   public void deleteById(Long id) {
     repository.deleteById(id);
   }
+
+  @Override
+  public void deleteAll() {
+    repository.deleteAll();
+  }
 }
