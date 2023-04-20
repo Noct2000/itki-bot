@@ -25,4 +25,6 @@ public class Curator {
   private String name;
   private String lastName;
   private String additionalName;
+  private String department;
+  private String position;
 }
