@@ -25,3 +25,11 @@ databaseChangeLog:
       file: /db/changelog/changes/create-curator-table.sql
   - include:
       file: /db/changelog/changes/add-curator-sequence.sql
+  - include:
+      file: /db/changelog/changes/create-group-table.sql
+  - include:
+      file: /db/changelog/changes/add-curator-id-column-to-group.sql
+  - include:
+      file: /db/changelog/changes/add-group-sequence.sql
+  - include:
+      file: /db/changelog/changes/add-group-curator-constraint.sql
