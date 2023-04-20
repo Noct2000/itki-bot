@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@Table(name = "group")
+@Table(name = "[group]")
 public class Group {
   @Id
   @GeneratedValue(generator = "group_id_seq", strategy = GenerationType.SEQUENCE)
