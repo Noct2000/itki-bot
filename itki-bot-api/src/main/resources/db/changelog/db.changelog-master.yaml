@@ -33,3 +33,7 @@ databaseChangeLog:
       file: /db/changelog/changes/add-group-sequence.sql
   - include:
       file: /db/changelog/changes/add-group-curator-constraint.sql
+  - include:
+      file: /db/changelog/changes/create-telegram-user-table.sql
+  - include:
+      file: /db/changelog/changes/add-telegram-user-sequence.sql

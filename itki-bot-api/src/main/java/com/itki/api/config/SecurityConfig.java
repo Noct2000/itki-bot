@@ -34,12 +34,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().authorizeRequests()
       .antMatchers("/success").hasAnyRole("ADMIN", "USER")
-      .antMatchers(HttpMethod.GET, "/questions", "/curators", "/groups")
-        .hasAnyRole("ADMIN", "USER")
-      .antMatchers(HttpMethod.POST, "/questions", "/curators", "/groups")
-        .hasRole("ADMIN")
-      .antMatchers(HttpMethod.DELETE, "/questions/**", "/curators/**", "/groups/**")
-        .hasRole("ADMIN")
+      .antMatchers(
+          HttpMethod.GET,
+          "/questions",
+          "/curators",
+          "/groups",
+          "/telegram-users",
+          "/telegram-users/**"
+          ).hasAnyRole("ADMIN", "USER")
+      .antMatchers(
+          HttpMethod.POST,
+          "/questions",
+          "/curators",
+          "/groups",
+          "/telegram-users"
+      ).hasRole("ADMIN")
+      .antMatchers(
+          HttpMethod.DELETE,
+          "/questions/**",
+          "/curators/**",
+          "/groups/**",
+          "/telegram-users/**"
+      ).hasRole("ADMIN")
       .antMatchers("/login").permitAll()
       .anyRequest().authenticated()
       .and()
