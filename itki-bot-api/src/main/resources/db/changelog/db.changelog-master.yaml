@@ -21,3 +21,7 @@ databaseChangeLog:
       file: /db/changelog/changes/add-answer-sequence.sql
   - include:
       file: /db/changelog/changes/add-question-sequence.sql
+  - include:
+      file: /db/changelog/changes/create-curator-table.sql
+  - include:
+      file: /db/changelog/changes/add-curator-sequence.sql
