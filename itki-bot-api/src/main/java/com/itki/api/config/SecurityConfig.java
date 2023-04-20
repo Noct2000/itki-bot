@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           HttpMethod.GET,
           "/questions",
           "/curators",
+          "/curators/**",
           "/groups",
           "/telegram-users",
           "/telegram-users/**"

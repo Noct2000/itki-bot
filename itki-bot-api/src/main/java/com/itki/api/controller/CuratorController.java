@@ -40,6 +40,11 @@ public class CuratorController {
         .collect(Collectors.toList());
   }
 
+  @GetMapping("/{id}/groups-count")
+  public Long getGroupsCountBy(@PathVariable Long id) {
+    return curatorService.getGroupsCountByCuratorId(id);
+  }
+
   @DeleteMapping("/{id}")
   public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
     curatorService.deleteById(id);
