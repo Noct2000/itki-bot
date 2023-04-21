@@ -27,9 +27,10 @@ services:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
       - $DEBUG_PORT:$DEBUG_PORT
     environment:
-      - spring.datasource.url=jdbc:postgresql://postgres:5432/itki_db
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/$POSTGRES_DB
       - spring.datasource.username=$POSTGRES_USER
       - spring.datasource.password=$POSTGRES_PASSWORD
+      - security.jwt.token.expire-length=$JWT_TOKEN_TTL
       - spring.jpa.hibernate.ddl-auto=validate
       - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
     healthcheck:
