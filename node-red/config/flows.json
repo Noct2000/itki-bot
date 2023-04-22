@@ -785,20 +785,6 @@
         "wires": []
     },
     {
-        "id": "4d98901a1e6fbe96",
-        "type": "link out",
-        "z": "ef8f9b32dc650502",
-        "name": "link out 10",
-        "mode": "link",
-        "links": [
-            "67adf457139ad431",
-            "3ee8ad858222412f"
-        ],
-        "x": 645,
-        "y": 1320,
-        "wires": []
-    },
-    {
         "id": "c02552101f3f29d3",
         "type": "change",
         "z": "ef8f9b32dc650502",
@@ -806,10 +792,26 @@
         "rules": [
             {
                 "t": "set",
-                "p": "schedule",
+                "p": "file",
                 "pt": "msg",
                 "to": "schedule",
                 "tot": "flow",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "filename",
+                "pt": "msg",
+                "to": "scheduleName",
+                "tot": "flow",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "TELEGRAM_TOKEN",
+                "pt": "msg",
+                "to": "TELEGRAM_TOKEN",
+                "tot": "env",
                 "dc": true
             }
         ],
@@ -822,27 +824,7 @@
         "y": 1320,
         "wires": [
             [
-                "f015a4dc71559b8d"
-            ]
-        ]
-    },
-    {
-        "id": "f015a4dc71559b8d",
-        "type": "chatbot-message",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "message": [
-            {
-                "message": "{{schedule}}\nРозклад"
-            }
-        ],
-        "language": "none",
-        "x": 450,
-        "y": 1320,
-        "wires": [
-            [
-                "4d98901a1e6fbe96",
-                "c72b7dfe1420d011"
+                "4350201ea5960830"
             ]
         ]
     },
@@ -912,7 +894,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1100,
+        "x": 1300,
         "y": 220,
         "wires": []
     },
@@ -921,7 +903,7 @@
         "type": "function",
         "z": "ef8f9b32dc650502",
         "name": "parse link to schedule",
-        "func": "const regex = /\\/rasps\\/sched_fit.*\\.xls/gm;\nmsg.link = msg.api + msg.payload.match(regex)[0];\nreturn msg;",
+        "func": "const regex = /\\/rasps\\/sched_fit.*\\.xls/gm;\nmsg.link = msg.api + msg.payload.match(regex)[0];\nmsg.filename = msg.link.split(\"/\").at(-1);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -931,7 +913,7 @@
         "y": 220,
         "wires": [
             [
-                "46fab0ef50158d41"
+                "7006fa1687b2a9ed"
             ]
         ]
     },
@@ -983,7 +965,15 @@
                 "t": "set",
                 "p": "schedule",
                 "pt": "flow",
-                "to": "link",
+                "to": "payload",
+                "tot": "msg",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "scheduleName",
+                "pt": "flow",
+                "to": "filename",
                 "tot": "msg",
                 "dc": true
             }
@@ -993,7 +983,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 930,
+        "x": 1130,
         "y": 220,
         "wires": [
             [
@@ -1239,23 +1229,6 @@
                 "5614f5f8d3c1e76f"
             ]
         ]
-    },
-    {
-        "id": "c72b7dfe1420d011",
-        "type": "debug",
-        "z": "ef8f9b32dc650502",
-        "name": "text",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 630,
-        "y": 1260,
-        "wires": []
     },
     {
         "id": "2c3f50270919b2da",
@@ -2070,6 +2043,97 @@
         "wires": [
             [
                 "d505aeed7a377193"
+            ]
+        ]
+    },
+    {
+        "id": "4350201ea5960830",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "build request",
+        "func": "msg.payload = {\n    \"document\": {\n        \"value\": msg.file,\n        \"options\": {\n            \"filename\": msg.filename\n        }\n    },\n    \"chat_id\": msg.originalMessage.from.id,\n    \"caption\": msg.caption\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1320,
+        "wires": [
+            [
+                "4b1bd310cb2c6ae4"
+            ]
+        ]
+    },
+    {
+        "id": "4b1bd310cb2c6ae4",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "send file",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.telegram.org/bot{{{TELEGRAM_TOKEN}}}/sendDocument",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Content-Type",
+                "valueType": "other",
+                "valueValue": "multipart/form-data"
+            }
+        ],
+        "x": 620,
+        "y": 1320,
+        "wires": [
+            [
+                "bbb8c546f3521a27"
+            ]
+        ]
+    },
+    {
+        "id": "bbb8c546f3521a27",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "send schedule",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "7006fa1687b2a9ed",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "get bin schedule",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "{{{link}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 940,
+        "y": 220,
+        "wires": [
+            [
+                "46fab0ef50158d41"
             ]
         ]
     }
