@@ -202,7 +202,8 @@
                 "bcbf3adc5918dcb6"
             ],
             [
-                "6207f6baa19bfda1"
+                "6207f6baa19bfda1",
+                "975ad5c429fc95de"
             ],
             [
                 "20a71a061e8c5f20"
@@ -278,8 +279,8 @@
             }
         ],
         "language": "none",
-        "x": 650,
-        "y": 860,
+        "x": 730,
+        "y": 900,
         "wires": [
             [
                 "cf32863c571a6118"
@@ -499,8 +500,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 875,
-        "y": 860,
+        "x": 895,
+        "y": 900,
         "wires": []
     },
     {
@@ -1597,7 +1598,7 @@
         "id": "34f44f136d5ac470",
         "type": "change",
         "z": "ef8f9b32dc650502",
-        "name": "set nmu API",
+        "name": "set API",
         "rules": [
             {
                 "t": "set",
@@ -1620,7 +1621,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 310,
+        "x": 300,
         "y": 560,
         "wires": [
             [
@@ -1891,6 +1892,185 @@
         "y": 620,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "3bc38dd1d4f64216",
+        "type": "link in",
+        "z": "ef8f9b32dc650502",
+        "name": "/saveUser",
+        "links": [
+            "975ad5c429fc95de"
+        ],
+        "x": 85,
+        "y": 2240,
+        "wires": [
+            [
+                "7bba0ebd14f364dd"
+            ]
+        ]
+    },
+    {
+        "id": "f1fae590fab55037",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "save user",
+        "info": "",
+        "x": 120,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "975ad5c429fc95de",
+        "type": "link out",
+        "z": "ef8f9b32dc650502",
+        "name": "/saveUser",
+        "mode": "link",
+        "links": [
+            "3bc38dd1d4f64216"
+        ],
+        "x": 655,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "9d65d2d55050c5cf",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "save user",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{api}}/telegram-users",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 940,
+        "y": 2240,
+        "wires": [
+            [
+                "51be6ad57264a8be"
+            ]
+        ]
+    },
+    {
+        "id": "7bba0ebd14f364dd",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set env variables",
+        "rules": [
+            {
+                "t": "set",
+                "p": "api",
+                "pt": "msg",
+                "to": "API_HOST",
+                "tot": "env",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "msg",
+                "to": "token",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "users",
+                "pt": "msg",
+                "to": "users",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 2240,
+        "wires": [
+            [
+                "df3d738c62a961c8"
+            ]
+        ]
+    },
+    {
+        "id": "12de6157bff48115",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "set headers",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['Authorization'] = 'Bearer ' + msg.token;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 2240,
+        "wires": [
+            [
+                "9d65d2d55050c5cf"
+            ]
+        ]
+    },
+    {
+        "id": "df3d738c62a961c8",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "build request",
+        "func": "msg.payload = {\n    \"firstName\": msg.originalMessage.from.first_name,\n    \"lastName\": msg.originalMessage.from.last_name,\n    \"username\": msg.originalMessage.from.username,\n    \"externalChatId\": msg.originalMessage.from.id\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 2240,
+        "wires": [
+            [
+                "12de6157bff48115"
+            ]
+        ]
+    },
+    {
+        "id": "d505aeed7a377193",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "save user",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1300,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "51be6ad57264a8be",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "add to local users",
+        "func": "if (!msg.users.includes(msg.originalMessage.from.id.toString())) {\n    msg.users.push(msg.originalMessage.from.id.toString())\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 2240,
+        "wires": [
+            [
+                "d505aeed7a377193"
+            ]
         ]
     }
 ]
