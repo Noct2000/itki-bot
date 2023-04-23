@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           "/questions",
           "/curators",
           "/groups",
-          "/telegram-users"
+          "/telegram-users",
+          "/tg/**"
       ).hasRole("ADMIN")
       .antMatchers(
           HttpMethod.DELETE,
@@ -57,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           "/telegram-users/**"
       ).hasRole("ADMIN")
       .antMatchers("/success").permitAll()
-      .antMatchers("/login").permitAll()
+      .antMatchers("/login", "/refresh").permitAll()
       .anyRequest().authenticated()
       .and()
       .apply(new JwtConfigurer(jwtTokenProvider))
