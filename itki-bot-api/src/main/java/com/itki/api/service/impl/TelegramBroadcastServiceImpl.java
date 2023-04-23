@@ -10,11 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
+import org.telegram.telegrambots.meta.api.methods.send.SendMediaGroup;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.media.InputMedia;
+import org.telegram.telegrambots.meta.api.objects.media.InputMediaPhoto;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +38,7 @@ public class TelegramBroadcastServiceImpl
     SendDocument sendDocument = new SendDocument();
     for (String externalChatId: externalChatIds) {
       sendDocument.setChatId(externalChatId);
-      sendDocument.setDocument(new InputFile(file.getInputStream(), file.getOriginalFilename()));
+      sendDocument.setDocument(this.toInputFile(file));
       sendDocument.setCaption(caption);
       execute(sendDocument);
     }
@@ -45,7 +50,7 @@ public class TelegramBroadcastServiceImpl
     SendPhoto sendPhoto = new SendPhoto();
     List<String> externalChatIds = telegramUserService.getAllExternalChatIds();
     for (String externalChatId: externalChatIds) {
-      sendPhoto.setPhoto(new InputFile(photo.getInputStream(), photo.getOriginalFilename()));
+      sendPhoto.setPhoto(this.toInputFile(photo));
       sendPhoto.setCaption(caption);
       sendPhoto.setChatId(externalChatId);
       execute(sendPhoto);
@@ -61,6 +66,20 @@ public class TelegramBroadcastServiceImpl
       sendMessage.setChatId(externalChatId);
       sendMessage.setText(text);
       execute(sendMessage);
+    }
+  }
+
+  @Override
+  @SneakyThrows
+  public void sendPhotoMediaGroup(MultipartFile[] photos) {
+    SendMediaGroup sendMediaGroup = new SendMediaGroup();
+    List<String> externalChatIds = telegramUserService.getAllExternalChatIds();
+    for (String externalChatId: externalChatIds) {
+      sendMediaGroup.setMedias(
+          Arrays.stream(photos).map(this::toInputPhotoMedia).collect(Collectors.toList())
+      );
+      sendMediaGroup.setChatId(externalChatId);
+      execute(sendMediaGroup);
     }
   }
 
@@ -82,5 +101,17 @@ public class TelegramBroadcastServiceImpl
   @Override
   public String getBotPath() {
     return null;
+  }
+
+  @SneakyThrows
+  private InputFile toInputFile(MultipartFile multipartFile) {
+    return new InputFile(multipartFile.getInputStream(), multipartFile.getOriginalFilename());
+  }
+
+  @SneakyThrows
+  private InputMedia toInputPhotoMedia(MultipartFile multipartFile) {
+    InputMediaPhoto inputMediaPhoto = new InputMediaPhoto();
+    inputMediaPhoto.setMedia(multipartFile.getInputStream(), multipartFile.getOriginalFilename());
+    return inputMediaPhoto;
   }
 }

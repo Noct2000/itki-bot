@@ -42,4 +42,12 @@ public class TelegramController {
     telegramBroadcastService.sendTextMessage(text);
     return ResponseEntity.ok().build();
   }
+
+  @PostMapping("/broadcast/mediaGroup/photo")
+  public ResponseEntity<HttpStatus> sendBroadcastPhotoGroup(
+      @RequestParam("photo") MultipartFile[] multipartFiles
+  ) {
+    telegramBroadcastService.sendPhotoMediaGroup(multipartFiles);
+    return ResponseEntity.ok().build();
+  }
 }

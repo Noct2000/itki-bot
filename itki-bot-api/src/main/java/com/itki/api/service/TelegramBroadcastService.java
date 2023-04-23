@@ -8,4 +8,6 @@ public interface TelegramBroadcastService {
   void sendPhoto(String caption, MultipartFile photo);
 
   void sendTextMessage(String text);
+
+  void sendPhotoMediaGroup(MultipartFile[] photos);
 }
