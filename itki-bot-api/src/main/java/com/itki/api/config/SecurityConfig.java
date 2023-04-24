@@ -39,8 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           "/curators",
           "/curators/**",
           "/groups",
-          "/telegram-users",
-          "/telegram-users/**"
+          "/telegram-users"
           ).hasAnyRole("ADMIN", "USER")
       .antMatchers(
           HttpMethod.POST,
