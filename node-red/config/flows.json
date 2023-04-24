@@ -2,7 +2,7 @@
     {
         "id": "ef8f9b32dc650502",
         "type": "tab",
-        "label": "Test",
+        "label": "itki_bot",
         "disabled": false,
         "info": "",
         "env": []
@@ -55,8 +55,8 @@
         "z": "ef8f9b32dc650502",
         "bot": "2f28686888d6bd2a",
         "botProduction": "",
-        "x": 150,
-        "y": 620,
+        "x": 170,
+        "y": 800,
         "wires": [
             [
                 "11299c98bba5c8d0",
@@ -74,8 +74,8 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 0,
-        "x": 1200,
-        "y": 660,
+        "x": 1210,
+        "y": 820,
         "wires": []
     },
     {
@@ -91,8 +91,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 350,
-        "y": 540,
+        "x": 370,
+        "y": 720,
         "wires": []
     },
     {
@@ -118,8 +118,8 @@
                 "description": "Отримати останній розклад ФІТ"
             }
         ],
-        "x": 300,
-        "y": 300,
+        "x": 320,
+        "y": 340,
         "wires": []
     },
     {
@@ -143,8 +143,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 300,
+        "x": 150,
+        "y": 340,
         "wires": [
             [
                 "846cbba6d24c7182"
@@ -186,8 +186,8 @@
             }
         ],
         "outputs": 7,
-        "x": 390,
-        "y": 620,
+        "x": 410,
+        "y": 800,
         "wires": [
             [
                 "0ec9e83584699c2b"
@@ -202,7 +202,8 @@
                 "bcbf3adc5918dcb6"
             ],
             [
-                "6207f6baa19bfda1"
+                "6207f6baa19bfda1",
+                "975ad5c429fc95de"
             ],
             [
                 "20a71a061e8c5f20"
@@ -223,8 +224,8 @@
             }
         ],
         "language": "none",
-        "x": 210,
-        "y": 1420,
+        "x": 230,
+        "y": 1500,
         "wires": [
             [
                 "b8cc7e425cdc6abf"
@@ -241,8 +242,8 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 1,
-        "x": 370,
-        "y": 1420,
+        "x": 390,
+        "y": 1500,
         "wires": [
             [
                 "9acfe5a74488b916"
@@ -256,8 +257,8 @@
         "name": "",
         "parseType": "number-integer",
         "parseVariable": "cabinet",
-        "x": 580,
-        "y": 1420,
+        "x": 600,
+        "y": 1500,
         "wires": [
             [
                 "de9e296e576e16d9"
@@ -278,8 +279,8 @@
             }
         ],
         "language": "none",
-        "x": 630,
-        "y": 680,
+        "x": 730,
+        "y": 900,
         "wires": [
             [
                 "cf32863c571a6118"
@@ -297,8 +298,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
-        "y": 1380,
+        "x": 980,
+        "y": 1460,
         "wires": [
             [
                 "d97158d544f83b7c"
@@ -325,8 +326,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 780,
-        "y": 1400,
+        "x": 800,
+        "y": 1480,
         "wires": [
             [
                 "14dcac47d6fa8938"
@@ -347,8 +348,8 @@
             }
         ],
         "language": "none",
-        "x": 960,
-        "y": 1460,
+        "x": 980,
+        "y": 1540,
         "wires": [
             [
                 "b652a5b7ed33e00c"
@@ -366,8 +367,8 @@
             }
         ],
         "language": "none",
-        "x": 1140,
-        "y": 1380,
+        "x": 1160,
+        "y": 1460,
         "wires": [
             [
                 "b96b9e7155c9a0da"
@@ -381,8 +382,8 @@
         "name": "remove buttons and send error",
         "buttons": [],
         "message": "Невідома команда ",
-        "x": 670,
-        "y": 780,
+        "x": 690,
+        "y": 960,
         "wires": [
             [
                 "4e6ba142399aabc8"
@@ -394,14 +395,14 @@
         "type": "function",
         "z": "ef8f9b32dc650502",
         "name": "set buttons",
-        "func": "const questions = Object.keys(flow.get(\"questions\"));\nlet buttons = [];\nfor (let i = 0; i < questions.length; i++) {\n    buttons.push({ type: 'newline' });\n    buttons.push({ type: 'keyboardButton', label: questions[i] });\n}\nmsg.payload = { \n    \"type\": \"buttons\",\n    \"content\": \"Вибери питання на яке хочеш отримати відповідь\",\n    \"chatId\": msg.payload.chatId,\n    \"buttons\": buttons\n    }\nreturn msg;",
+        "func": "const questions = Object.keys(flow.get(\"questions\"));\nlet buttons = [];\nfor (let i = 0; i < questions.length; i++) {\n    buttons.push({ type: 'newline' });\n    buttons.push({ type: 'keyboardButton', label: questions[i] });\n}\nmsg.payload = { \n    \"type\": \"telegram-buttons\",\n    \"content\": \"Вибери питання на яке хочеш отримати відповідь\",\n    \"chatId\": msg.payload.chatId,\n    \"buttons\": buttons,\n    \"oneTimeKeyboard\": true\n    }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 580,
+        "x": 630,
+        "y": 760,
         "wires": [
             [
                 "60263b02fe0a7c71"
@@ -425,86 +426,15 @@
         "repeat": "600",
         "crontab": "",
         "once": true,
-        "onceDelay": 0.1,
+        "onceDelay": "1",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 420,
+        "x": 150,
+        "y": 560,
         "wires": [
             [
-                "584daa1703e4fb13"
-            ]
-        ]
-    },
-    {
-        "id": "584daa1703e4fb13",
-        "type": "function",
-        "z": "ef8f9b32dc650502",
-        "name": "set data",
-        "func": "msg.questions = {\n    \"a\":\"a1\",\n    \"b\":\"b1\",\n    \"c\":\"c1\"\n};\nmsg.curators = {\n    '123-20-1': 'доц. Шедловський Ігор Анатолійович',\n    '123-20-2': 'доц. Шедловський Ігор Анатолійович',\n    '123-20ск-1': 'доц. Каштан Віта Юріївна',\n    '126-20-1': 'ас. Обиденний Євгеній Олександрович',\n    '126-20з-1': 'ас. Обиденний Євгеній Олександрович'\n};\nmsg.users = [\n    634333799,\n    5821982965\n];\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 320,
-        "y": 420,
-        "wires": [
-            [
-                "9eee9774e7dd440e"
-            ]
-        ]
-    },
-    {
-        "id": "9eee9774e7dd440e",
-        "type": "change",
-        "z": "ef8f9b32dc650502",
-        "name": "set to flow",
-        "rules": [
-            {
-                "t": "set",
-                "p": "questions",
-                "pt": "flow",
-                "to": "questions",
-                "tot": "msg",
-                "dc": true
-            },
-            {
-                "t": "set",
-                "p": "schedule",
-                "pt": "flow",
-                "to": "schedule",
-                "tot": "msg",
-                "dc": true
-            },
-            {
-                "t": "set",
-                "p": "curators",
-                "pt": "flow",
-                "to": "curators",
-                "tot": "msg",
-                "dc": true
-            },
-            {
-                "t": "set",
-                "p": "users",
-                "pt": "flow",
-                "to": "users",
-                "tot": "msg",
-                "dc": true
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 550,
-        "y": 420,
-        "wires": [
-            [
-                "7d3695e449ad3bb6"
+                "34f44f136d5ac470"
             ]
         ]
     },
@@ -524,8 +454,8 @@
             "0a2a562c5bbb492f",
             "8e1c031c62a3223c"
         ],
-        "x": 1035,
-        "y": 660,
+        "x": 1055,
+        "y": 820,
         "wires": [
             [
                 "6bc1c3172ea348be"
@@ -542,8 +472,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 745,
-        "y": 580,
+        "x": 835,
+        "y": 760,
         "wires": []
     },
     {
@@ -556,8 +486,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 885,
-        "y": 780,
+        "x": 905,
+        "y": 960,
         "wires": []
     },
     {
@@ -570,8 +500,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 855,
-        "y": 680,
+        "x": 895,
+        "y": 900,
         "wires": []
     },
     {
@@ -584,8 +514,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 1245,
-        "y": 1380,
+        "x": 1265,
+        "y": 1460,
         "wires": []
     },
     {
@@ -598,8 +528,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 1105,
-        "y": 1460,
+        "x": 1125,
+        "y": 1540,
         "wires": []
     },
     {
@@ -608,8 +538,8 @@
         "z": "ef8f9b32dc650502",
         "name": "set data to env flow",
         "info": "",
-        "x": 130,
-        "y": 380,
+        "x": 150,
+        "y": 420,
         "wires": []
     },
     {
@@ -618,8 +548,8 @@
         "z": "ef8f9b32dc650502",
         "name": "set menu",
         "info": "",
-        "x": 100,
-        "y": 260,
+        "x": 120,
+        "y": 300,
         "wires": []
     },
     {
@@ -628,8 +558,8 @@
         "z": "ef8f9b32dc650502",
         "name": "handle message ",
         "info": "",
-        "x": 120,
-        "y": 480,
+        "x": 140,
+        "y": 660,
         "wires": []
     },
     {
@@ -638,8 +568,8 @@
         "z": "ef8f9b32dc650502",
         "name": "handle button",
         "info": "",
-        "x": 110,
-        "y": 1560,
+        "x": 130,
+        "y": 1640,
         "wires": []
     },
     {
@@ -660,8 +590,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 620,
-        "y": 1620,
+        "x": 640,
+        "y": 1700,
         "wires": [
             [
                 "0005f3de40515888"
@@ -680,8 +610,8 @@
         "links": [
             "a8bb9967c68c74c2"
         ],
-        "x": 555,
-        "y": 720,
+        "x": 575,
+        "y": 900,
         "wires": []
     },
     {
@@ -693,8 +623,8 @@
             "20a71a061e8c5f20",
             "262204abeb1fbbf8"
         ],
-        "x": 125,
-        "y": 1620,
+        "x": 145,
+        "y": 1700,
         "wires": [
             [
                 "fc7f91448ed5ce03"
@@ -711,8 +641,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 1145,
-        "y": 1620,
+        "x": 1165,
+        "y": 1700,
         "wires": []
     },
     {
@@ -726,8 +656,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
-        "y": 1620,
+        "x": 360,
+        "y": 1700,
         "wires": [
             [
                 "45b28a3dcc0e4f26"
@@ -747,8 +677,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 750,
-        "y": 360,
+        "x": 1090,
+        "y": 480,
         "wires": []
     },
     {
@@ -758,8 +688,8 @@
         "name": "remove buttons and send error",
         "buttons": [],
         "message": "На це питання я не знаю відповіді, виконай команду /help, щоб переглянути поточний список питань",
-        "x": 890,
-        "y": 1660,
+        "x": 910,
+        "y": 1740,
         "wires": [
             [
                 "2beae5b7bba77a81"
@@ -777,8 +707,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 850,
-        "y": 1600,
+        "x": 870,
+        "y": 1680,
         "wires": [
             [
                 "2beae5b7bba77a81"
@@ -794,8 +724,8 @@
         "links": [
             "05887e897f7af058"
         ],
-        "x": 485,
-        "y": 560,
+        "x": 505,
+        "y": 740,
         "wires": []
     },
     {
@@ -807,8 +737,8 @@
             "0ec9e83584699c2b",
             "22d93b6af0e3e632"
         ],
-        "x": 85,
-        "y": 1420,
+        "x": 105,
+        "y": 1500,
         "wires": [
             [
                 "ef41fc39b74f7085"
@@ -821,8 +751,8 @@
         "z": "ef8f9b32dc650502",
         "name": "where is",
         "info": "",
-        "x": 120,
-        "y": 1340,
+        "x": 140,
+        "y": 1420,
         "wires": []
     },
     {
@@ -833,8 +763,8 @@
         "links": [
             "bcbf3adc5918dcb6"
         ],
-        "x": 95,
-        "y": 1240,
+        "x": 115,
+        "y": 1320,
         "wires": [
             [
                 "c02552101f3f29d3"
@@ -850,22 +780,8 @@
         "links": [
             "fbc920e4941c6344"
         ],
-        "x": 535,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "4d98901a1e6fbe96",
-        "type": "link out",
-        "z": "ef8f9b32dc650502",
-        "name": "link out 10",
-        "mode": "link",
-        "links": [
-            "67adf457139ad431",
-            "3ee8ad858222412f"
-        ],
-        "x": 625,
-        "y": 1240,
+        "x": 555,
+        "y": 820,
         "wires": []
     },
     {
@@ -876,10 +792,26 @@
         "rules": [
             {
                 "t": "set",
-                "p": "schedule",
+                "p": "file",
                 "pt": "msg",
                 "to": "schedule",
                 "tot": "flow",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "filename",
+                "pt": "msg",
+                "to": "scheduleName",
+                "tot": "flow",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "TELEGRAM_TOKEN",
+                "pt": "msg",
+                "to": "TELEGRAM_TOKEN",
+                "tot": "env",
                 "dc": true
             }
         ],
@@ -888,31 +820,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 230,
-        "y": 1240,
+        "x": 250,
+        "y": 1320,
         "wires": [
             [
-                "f015a4dc71559b8d"
-            ]
-        ]
-    },
-    {
-        "id": "f015a4dc71559b8d",
-        "type": "chatbot-message",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "message": [
-            {
-                "message": "{{schedule}}\nРозклад"
-            }
-        ],
-        "language": "none",
-        "x": 430,
-        "y": 1240,
-        "wires": [
-            [
-                "4d98901a1e6fbe96",
-                "c72b7dfe1420d011"
+                "4350201ea5960830"
             ]
         ]
     },
@@ -932,8 +844,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 470,
-        "y": 140,
+        "x": 490,
+        "y": 220,
         "wires": [
             [
                 "7f7b25dcdd2f1faf"
@@ -961,8 +873,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 110,
-        "y": 140,
+        "x": 130,
+        "y": 220,
         "wires": [
             [
                 "1cdde8d745fe1abd"
@@ -982,26 +894,26 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 960,
-        "y": 140,
+        "x": 1300,
+        "y": 220,
         "wires": []
     },
     {
         "id": "7f7b25dcdd2f1faf",
         "type": "function",
         "z": "ef8f9b32dc650502",
-        "name": "function 1",
-        "func": "const regex = /\\/rasps\\/sched_fit.*\\.xls/gm;\nmsg.link = msg.api + msg.payload.match(regex)[0];\nreturn msg;",
+        "name": "parse link to schedule",
+        "func": "const regex = /\\/rasps\\/sched_fit.*\\.xls/gm;\nmsg.link = msg.api + msg.payload.match(regex)[0];\nmsg.filename = msg.link.split(\"/\").at(-1);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 140,
+        "x": 700,
+        "y": 220,
         "wires": [
             [
-                "46fab0ef50158d41"
+                "7006fa1687b2a9ed"
             ]
         ]
     },
@@ -1015,8 +927,9 @@
                 "t": "set",
                 "p": "api",
                 "pt": "msg",
-                "to": "https://www.nmu.org.ua/ua/content/student_life/students/schedule",
-                "tot": "str"
+                "to": "NMU_API",
+                "tot": "env",
+                "dc": true
             }
         ],
         "action": "",
@@ -1024,8 +937,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 270,
-        "y": 140,
+        "x": 290,
+        "y": 220,
         "wires": [
             [
                 "2bc212af98739a66"
@@ -1038,8 +951,8 @@
         "z": "ef8f9b32dc650502",
         "name": "set schedule to flow",
         "info": "",
-        "x": 110,
-        "y": 80,
+        "x": 130,
+        "y": 160,
         "wires": []
     },
     {
@@ -1052,7 +965,15 @@
                 "t": "set",
                 "p": "schedule",
                 "pt": "flow",
-                "to": "link",
+                "to": "payload",
+                "tot": "msg",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "scheduleName",
+                "pt": "flow",
+                "to": "filename",
                 "tot": "msg",
                 "dc": true
             }
@@ -1062,8 +983,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 790,
-        "y": 140,
+        "x": 1130,
+        "y": 220,
         "wires": [
             [
                 "6e6ba016fcb210b6"
@@ -1076,8 +997,8 @@
         "z": "ef8f9b32dc650502",
         "name": "schedule",
         "info": "",
-        "x": 120,
-        "y": 1180,
+        "x": 140,
+        "y": 1260,
         "wires": []
     },
     {
@@ -1088,8 +1009,8 @@
         "links": [
             "7c4bae2579650d46"
         ],
-        "x": 85,
-        "y": 1100,
+        "x": 105,
+        "y": 1180,
         "wires": [
             [
                 "7315466db17ead42"
@@ -1105,8 +1026,8 @@
         "links": [
             "fcc970d53d7fe96e"
         ],
-        "x": 585,
-        "y": 620,
+        "x": 605,
+        "y": 800,
         "wires": []
     },
     {
@@ -1120,8 +1041,8 @@
             }
         ],
         "language": "none",
-        "x": 1170,
-        "y": 1140,
+        "x": 1190,
+        "y": 1220,
         "wires": [
             [
                 "0a2a562c5bbb492f"
@@ -1138,8 +1059,8 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 1345,
-        "y": 1100,
+        "x": 1365,
+        "y": 1180,
         "wires": []
     },
     {
@@ -1153,8 +1074,8 @@
             }
         ],
         "language": "none",
-        "x": 210,
-        "y": 1100,
+        "x": 230,
+        "y": 1180,
         "wires": [
             [
                 "d3e8459a15f87e03"
@@ -1171,8 +1092,8 @@
         "passThrough": false,
         "errorOutput": false,
         "outputs": 1,
-        "x": 370,
-        "y": 1100,
+        "x": 390,
+        "y": 1180,
         "wires": [
             [
                 "596cfe3058c46cc1"
@@ -1186,8 +1107,8 @@
         "name": "",
         "parseType": "string",
         "parseVariable": "group",
-        "x": 580,
-        "y": 1100,
+        "x": 600,
+        "y": 1180,
         "wires": [
             [
                 "7f22da732a53b06c"
@@ -1206,8 +1127,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 810,
-        "y": 1100,
+        "x": 830,
+        "y": 1180,
         "wires": [
             [
                 "d9a61467c7167b3c",
@@ -1233,8 +1154,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1010,
-        "y": 1100,
+        "x": 1030,
+        "y": 1180,
         "wires": [
             [
                 "58454ce51bab29ab"
@@ -1255,8 +1176,8 @@
             }
         ],
         "language": "none",
-        "x": 1170,
-        "y": 1060,
+        "x": 1190,
+        "y": 1140,
         "wires": [
             [
                 "0a2a562c5bbb492f"
@@ -1276,8 +1197,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1100,
-        "y": 940,
+        "x": 1120,
+        "y": 1020,
         "wires": []
     },
     {
@@ -1286,127 +1207,78 @@
         "z": "ef8f9b32dc650502",
         "name": "curator",
         "info": "",
+        "x": 150,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "517aa0aebf00f7f4",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "set jwt token to flow",
+        "info": "",
         "x": 130,
-        "y": 1040,
+        "y": 40,
         "wires": []
     },
     {
-        "id": "a8af96b190c3066d",
-        "type": "function",
+        "id": "ebe01f312b6d7b11",
+        "type": "inject",
         "z": "ef8f9b32dc650502",
-        "name": "function 2",
-        "func": "msg.isEnd = msg.counter === msg.users.length;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 640,
-        "y": 1920,
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 100,
         "wires": [
             [
-                "5614f5f8d3c1e76f"
+                "77e398b682b071ba"
             ]
         ]
     },
     {
-        "id": "c72b7dfe1420d011",
-        "type": "debug",
-        "z": "ef8f9b32dc650502",
-        "name": "text",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 610,
-        "y": 1180,
-        "wires": []
-    },
-    {
-        "id": "2c3f50270919b2da",
-        "type": "telegram sender",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "bot": "962bcd24965c1c6c",
-        "haserroroutput": false,
-        "outputs": 1,
-        "x": 1140,
-        "y": 1920,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "edb78e7dd11a0944",
-        "type": "http in",
-        "z": "ef8f9b32dc650502",
-        "name": "sendMessagePost",
-        "url": "/sendMessage",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 210,
-        "y": 1920,
-        "wires": [
-            [
-                "a97c566de095a923",
-                "15e66b75ed24b9b5",
-                "5af06f2280e2872b"
-            ]
-        ]
-    },
-    {
-        "id": "a97c566de095a923",
-        "type": "debug",
-        "z": "ef8f9b32dc650502",
-        "name": "send broadcast",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 400,
-        "y": 1840,
-        "wires": []
-    },
-    {
-        "id": "15e66b75ed24b9b5",
-        "type": "http response",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "statusCode": "200",
-        "headers": {},
-        "x": 340,
-        "y": 2000,
-        "wires": []
-    },
-    {
-        "id": "5af06f2280e2872b",
+        "id": "77e398b682b071ba",
         "type": "change",
         "z": "ef8f9b32dc650502",
-        "name": "",
+        "name": "set credentials",
         "rules": [
             {
                 "t": "set",
-                "p": "users",
+                "p": "api",
                 "pt": "msg",
-                "to": "users",
-                "tot": "flow",
+                "to": "API_HOST",
+                "tot": "env",
                 "dc": true
             },
             {
                 "t": "set",
-                "p": "counter",
+                "p": "login",
                 "pt": "msg",
-                "to": "0",
-                "tot": "num"
+                "to": "API_LOGIN",
+                "tot": "env",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "password",
+                "pt": "msg",
+                "to": "API_PASSWORD",
+                "tot": "env",
+                "dc": true
             }
         ],
         "action": "",
@@ -1414,63 +1286,89 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
-        "y": 1920,
+        "x": 300,
+        "y": 100,
         "wires": [
             [
-                "a8af96b190c3066d"
+                "085880f310e0f2bc"
             ]
         ]
     },
     {
-        "id": "5614f5f8d3c1e76f",
-        "type": "switch",
+        "id": "4668e72b76a92e00",
+        "type": "http request",
         "z": "ef8f9b32dc650502",
-        "name": "",
-        "property": "isEnd",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 790,
-        "y": 1920,
+        "name": "login",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{{api}}}/login",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 100,
         "wires": [
             [
-                "4159abbb4706a0b2"
+                "3c826a2ec38946e0",
+                "046df3500b4afc41"
             ]
         ]
     },
     {
-        "id": "4159abbb4706a0b2",
+        "id": "085880f310e0f2bc",
         "type": "function",
         "z": "ef8f9b32dc650502",
-        "name": "function 3",
-        "func": "msg.payload.chatId = msg.users[msg.counter];\nmsg.counter = msg.counter + 1;\nreturn msg;",
+        "name": "build request",
+        "func": "msg.payload = {\n    \"login\": msg.login,\n    \"password\": msg.password\n};\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
-        "y": 1920,
+        "x": 490,
+        "y": 100,
         "wires": [
             [
-                "2c3f50270919b2da",
-                "b0176beda40a5517",
-                "a8af96b190c3066d"
+                "4668e72b76a92e00"
             ]
         ]
     },
     {
-        "id": "b0176beda40a5517",
+        "id": "046df3500b4afc41",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set to flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "flow",
+                "to": "payload.token",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c826a2ec38946e0",
         "type": "debug",
         "z": "ef8f9b32dc650502",
-        "name": "send to user",
+        "name": "login",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -1479,18 +1377,490 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1110,
+        "x": 750,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "34f44f136d5ac470",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set API",
+        "rules": [
+            {
+                "t": "set",
+                "p": "api",
+                "pt": "msg",
+                "to": "API_HOST",
+                "tot": "env",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "msg",
+                "to": "token",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "3abece931b48d293"
+            ]
+        ]
+    },
+    {
+        "id": "22edf69576887340",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "get questions",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{api}}/questions",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 680,
+        "y": 520,
+        "wires": [
+            [
+                "b456903a2d207bfc"
+            ]
+        ]
+    },
+    {
+        "id": "3abece931b48d293",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "set headers",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['Authorization'] = 'Bearer ' + msg.token;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 560,
+        "wires": [
+            [
+                "22edf69576887340",
+                "add3fbcef2802dd3"
+            ]
+        ]
+    },
+    {
+        "id": "b456903a2d207bfc",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "map questions",
+        "func": "msg.questions = {};\nmsg.payload.forEach(question => msg.questions[question.questionText] = question.answerText)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 520,
+        "wires": [
+            [
+                "7d3695e449ad3bb6",
+                "39d031439afbd176"
+            ]
+        ]
+    },
+    {
+        "id": "39d031439afbd176",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set to flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "questions",
+                "pt": "flow",
+                "to": "questions",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "add3fbcef2802dd3",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "get groups with curators",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{api}}/groups",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 710,
+        "y": 620,
+        "wires": [
+            [
+                "dd3c626d7d5e74f1"
+            ]
+        ]
+    },
+    {
+        "id": "e99094229ade9d81",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "groups",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "dd3c626d7d5e74f1",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "map curators",
+        "func": "msg.curators = {};\nmsg.payload.forEach(group => {\n    msg.curators[group.name.toLowerCase()] = `${group.curator.position} `\n    +`каф. ${group.curator.department} `\n    +`${group.curator.lastName} ${group.curator.name} ${group.curator.additionalName}`;\n    });\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 620,
+        "wires": [
+            [
+                "e99094229ade9d81",
+                "89efb75e86e1beb6"
+            ]
+        ]
+    },
+    {
+        "id": "89efb75e86e1beb6",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set to flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "curators",
+                "pt": "flow",
+                "to": "curators",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3bc38dd1d4f64216",
+        "type": "link in",
+        "z": "ef8f9b32dc650502",
+        "name": "/saveUser",
+        "links": [
+            "975ad5c429fc95de"
+        ],
+        "x": 85,
+        "y": 1900,
+        "wires": [
+            [
+                "7bba0ebd14f364dd"
+            ]
+        ]
+    },
+    {
+        "id": "f1fae590fab55037",
+        "type": "comment",
+        "z": "ef8f9b32dc650502",
+        "name": "save user",
+        "info": "",
+        "x": 120,
         "y": 1840,
         "wires": []
     },
     {
-        "id": "19c040192160dc07",
-        "type": "comment",
+        "id": "975ad5c429fc95de",
+        "type": "link out",
         "z": "ef8f9b32dc650502",
-        "name": "broadcast message",
-        "info": "",
-        "x": 130,
-        "y": 1800,
+        "name": "/saveUser",
+        "mode": "link",
+        "links": [
+            "3bc38dd1d4f64216"
+        ],
+        "x": 655,
+        "y": 860,
         "wires": []
+    },
+    {
+        "id": "9d65d2d55050c5cf",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "save user",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{api}}/telegram-users",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 940,
+        "y": 1900,
+        "wires": [
+            [
+                "51be6ad57264a8be"
+            ]
+        ]
+    },
+    {
+        "id": "7bba0ebd14f364dd",
+        "type": "change",
+        "z": "ef8f9b32dc650502",
+        "name": "set env variables",
+        "rules": [
+            {
+                "t": "set",
+                "p": "api",
+                "pt": "msg",
+                "to": "API_HOST",
+                "tot": "env",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "msg",
+                "to": "token",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "users",
+                "pt": "msg",
+                "to": "users",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 1900,
+        "wires": [
+            [
+                "df3d738c62a961c8"
+            ]
+        ]
+    },
+    {
+        "id": "12de6157bff48115",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "set headers",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['Authorization'] = 'Bearer ' + msg.token;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 1900,
+        "wires": [
+            [
+                "9d65d2d55050c5cf"
+            ]
+        ]
+    },
+    {
+        "id": "df3d738c62a961c8",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "build request",
+        "func": "msg.payload = {\n    \"firstName\": msg.originalMessage.from.first_name,\n    \"lastName\": msg.originalMessage.from.last_name,\n    \"username\": msg.originalMessage.from.username,\n    \"externalChatId\": msg.originalMessage.from.id\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1900,
+        "wires": [
+            [
+                "12de6157bff48115"
+            ]
+        ]
+    },
+    {
+        "id": "d505aeed7a377193",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "save user",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1300,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "51be6ad57264a8be",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "add to local users",
+        "func": "if (!msg.users.includes(msg.originalMessage.from.id.toString())) {\n    msg.users.push(msg.originalMessage.from.id.toString())\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 1900,
+        "wires": [
+            [
+                "d505aeed7a377193"
+            ]
+        ]
+    },
+    {
+        "id": "4350201ea5960830",
+        "type": "function",
+        "z": "ef8f9b32dc650502",
+        "name": "build request",
+        "func": "msg.payload = {\n    \"document\": {\n        \"value\": msg.file,\n        \"options\": {\n            \"filename\": msg.filename\n        }\n    },\n    \"chat_id\": msg.originalMessage.from.id,\n    \"caption\": msg.caption\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1320,
+        "wires": [
+            [
+                "4b1bd310cb2c6ae4"
+            ]
+        ]
+    },
+    {
+        "id": "4b1bd310cb2c6ae4",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "send file",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.telegram.org/bot{{{TELEGRAM_TOKEN}}}/sendDocument",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Content-Type",
+                "valueType": "other",
+                "valueValue": "multipart/form-data"
+            }
+        ],
+        "x": 620,
+        "y": 1320,
+        "wires": [
+            [
+                "bbb8c546f3521a27"
+            ]
+        ]
+    },
+    {
+        "id": "bbb8c546f3521a27",
+        "type": "debug",
+        "z": "ef8f9b32dc650502",
+        "name": "send schedule",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "7006fa1687b2a9ed",
+        "type": "http request",
+        "z": "ef8f9b32dc650502",
+        "name": "get bin schedule",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "{{{link}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 940,
+        "y": 220,
+        "wires": [
+            [
+                "46fab0ef50158d41"
+            ]
+        ]
     }
 ]

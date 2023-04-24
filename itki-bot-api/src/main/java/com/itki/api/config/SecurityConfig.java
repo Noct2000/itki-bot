@@ -33,22 +33,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().authorizeRequests()
-      .antMatchers("/success").hasAnyRole("ADMIN", "USER")
       .antMatchers(
           HttpMethod.GET,
           "/questions",
           "/curators",
           "/curators/**",
           "/groups",
-          "/telegram-users",
-          "/telegram-users/**"
+          "/telegram-users"
           ).hasAnyRole("ADMIN", "USER")
       .antMatchers(
           HttpMethod.POST,
           "/questions",
           "/curators",
           "/groups",
-          "/telegram-users"
+          "/telegram-users",
+          "/tg/**"
       ).hasRole("ADMIN")
       .antMatchers(
           HttpMethod.DELETE,
@@ -57,9 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           "/groups/**",
           "/telegram-users/**"
       ).hasRole("ADMIN")
-      .antMatchers("/login").permitAll()
+      .antMatchers("/success").permitAll()
+      .antMatchers("/login", "/refresh").permitAll()
       .anyRequest().authenticated()
       .and()
-      .apply(new JwtConfigurer(jwtTokenProvider));
+      .apply(new JwtConfigurer(jwtTokenProvider))
+      .and().cors();
   }
 }

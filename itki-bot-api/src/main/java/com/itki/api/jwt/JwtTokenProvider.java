@@ -46,6 +46,16 @@ public class JwtTokenProvider {
       .compact();
   }
 
+  public String createRefreshToken(String profileName) {
+    Claims claims = Jwts.claims().setSubject(profileName);
+    Date now = new Date();
+    return Jwts.builder()
+        .setClaims(claims)
+        .setIssuedAt(now)
+        .signWith(SignatureAlgorithm.HS256, secretKey)
+        .compact();
+  }
+
   public Authentication getAuthentication(String token) {
     UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
     return new UsernamePasswordAuthenticationToken(

@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,12 @@ import lombok.Setter;
 @Table(name = "role")
 public class Role {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(generator = "role_id_seq", strategy = GenerationType.SEQUENCE)
+  @SequenceGenerator(
+      name = "role_id_seq",
+      sequenceName = "role_id_seq",
+      allocationSize = 1
+  )
   private Long id;
   @Enumerated(EnumType.STRING)
   private RoleName name;

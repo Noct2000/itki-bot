@@ -40,11 +40,6 @@ public class TelegramUserController {
         .collect(Collectors.toList());
   }
 
-  @GetMapping("/external-chat-ids")
-  public List<String> getAllExternalChatIds() {
-    return telegramUserService.getAllExternalChatIds();
-  }
-
   @DeleteMapping("/{id}")
   public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
     telegramUserService.deleteById(id);

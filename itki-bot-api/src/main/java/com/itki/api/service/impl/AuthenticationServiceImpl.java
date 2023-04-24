@@ -18,18 +18,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   private final JwtTokenProvider jwtTokenProvider;
 
   @Override
-  public LoginResponseDto login(String login, String password) {
+  public Optional<LoginResponseDto> login(String login, String password) {
     Optional<User> user = userService.findByLogin(login);
     if (user.isEmpty() || !passwordEncoder.matches(password, user.get().getPassword())) {
-      throw new RuntimeException("Wrong login: " + login + " or password");
+      return Optional.empty();
     }
-    return getLoginResponse(user.get());
+    return Optional.of(getLoginResponse(user.get()));
+  }
+
+  @Override
+  public Optional<LoginResponseDto> login(String refreshToken) {
+    Optional<User> user = userService
+        .findByLogin(jwtTokenProvider.getUsername(refreshToken));
+    return user.map(this::getLoginResponse);
   }
 
   private LoginResponseDto getLoginResponse(User user) {
     String accessToken = jwtTokenProvider.createAccessToken(user.getLogin());
+    String refreshToken = jwtTokenProvider.createRefreshToken(user.getLogin());
     LoginResponseDto loginResponseDto = new LoginResponseDto();
     loginResponseDto.setToken(accessToken);
+    loginResponseDto.setRefreshToken(refreshToken);
     return loginResponseDto;
   }
 
