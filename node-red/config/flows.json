@@ -395,7 +395,7 @@
         "type": "function",
         "z": "ef8f9b32dc650502",
         "name": "set buttons",
-        "func": "const questions = Object.keys(flow.get(\"questions\"));\nlet buttons = [];\nfor (let i = 0; i < questions.length; i++) {\n    buttons.push({ type: 'newline' });\n    buttons.push({ type: 'keyboardButton', label: questions[i] });\n}\nmsg.payload = { \n    \"type\": \"buttons\",\n    \"content\": \"Вибери питання на яке хочеш отримати відповідь\",\n    \"chatId\": msg.payload.chatId,\n    \"buttons\": buttons\n    }\nreturn msg;",
+        "func": "const questions = Object.keys(flow.get(\"questions\"));\nlet buttons = [];\nfor (let i = 0; i < questions.length; i++) {\n    buttons.push({ type: 'newline' });\n    buttons.push({ type: 'keyboardButton', label: questions[i] });\n}\nmsg.payload = { \n    \"type\": \"telegram-buttons\",\n    \"content\": \"Вибери питання на яке хочеш отримати відповідь\",\n    \"chatId\": msg.payload.chatId,\n    \"buttons\": buttons,\n    \"oneTimeKeyboard\": true\n    }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -472,7 +472,7 @@
             "67adf457139ad431",
             "3ee8ad858222412f"
         ],
-        "x": 765,
+        "x": 835,
         "y": 760,
         "wires": []
     },
@@ -678,7 +678,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1090,
-        "y": 420,
+        "y": 480,
         "wires": []
     },
     {
@@ -1212,192 +1212,6 @@
         "wires": []
     },
     {
-        "id": "a8af96b190c3066d",
-        "type": "function",
-        "z": "ef8f9b32dc650502",
-        "name": "set exit variable",
-        "func": "msg.isEnd = msg.counter === msg.users.length;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 660,
-        "y": 2000,
-        "wires": [
-            [
-                "5614f5f8d3c1e76f"
-            ]
-        ]
-    },
-    {
-        "id": "2c3f50270919b2da",
-        "type": "telegram sender",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "bot": "962bcd24965c1c6c",
-        "haserroroutput": false,
-        "outputs": 1,
-        "x": 1280,
-        "y": 2000,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "edb78e7dd11a0944",
-        "type": "http in",
-        "z": "ef8f9b32dc650502",
-        "name": "sendMessagePost",
-        "url": "/sendMessage",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 230,
-        "y": 2000,
-        "wires": [
-            [
-                "a97c566de095a923",
-                "15e66b75ed24b9b5",
-                "5af06f2280e2872b"
-            ]
-        ]
-    },
-    {
-        "id": "a97c566de095a923",
-        "type": "debug",
-        "z": "ef8f9b32dc650502",
-        "name": "send broadcast",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 420,
-        "y": 1920,
-        "wires": []
-    },
-    {
-        "id": "15e66b75ed24b9b5",
-        "type": "http response",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "statusCode": "200",
-        "headers": {},
-        "x": 360,
-        "y": 2080,
-        "wires": []
-    },
-    {
-        "id": "5af06f2280e2872b",
-        "type": "change",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "users",
-                "pt": "msg",
-                "to": "users",
-                "tot": "flow",
-                "dc": true
-            },
-            {
-                "t": "set",
-                "p": "counter",
-                "pt": "msg",
-                "to": "0",
-                "tot": "num"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 460,
-        "y": 2000,
-        "wires": [
-            [
-                "a8af96b190c3066d"
-            ]
-        ]
-    },
-    {
-        "id": "5614f5f8d3c1e76f",
-        "type": "switch",
-        "z": "ef8f9b32dc650502",
-        "name": "",
-        "property": "isEnd",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 810,
-        "y": 2000,
-        "wires": [
-            [
-                "4159abbb4706a0b2"
-            ]
-        ]
-    },
-    {
-        "id": "4159abbb4706a0b2",
-        "type": "function",
-        "z": "ef8f9b32dc650502",
-        "name": "increment counter",
-        "func": "msg.payload.chatId = msg.users[msg.counter];\nmsg.counter = msg.counter + 1;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 990,
-        "y": 2000,
-        "wires": [
-            [
-                "2c3f50270919b2da",
-                "b0176beda40a5517",
-                "a8af96b190c3066d"
-            ]
-        ]
-    },
-    {
-        "id": "b0176beda40a5517",
-        "type": "debug",
-        "z": "ef8f9b32dc650502",
-        "name": "send to user",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1230,
-        "y": 1920,
-        "wires": []
-    },
-    {
-        "id": "19c040192160dc07",
-        "type": "comment",
-        "z": "ef8f9b32dc650502",
-        "name": "broadcast message",
-        "info": "",
-        "x": 150,
-        "y": 1880,
-        "wires": []
-    },
-    {
         "id": "517aa0aebf00f7f4",
         "type": "comment",
         "z": "ef8f9b32dc650502",
@@ -1619,7 +1433,7 @@
         "senderr": false,
         "headers": [],
         "x": 680,
-        "y": 460,
+        "y": 520,
         "wires": [
             [
                 "b456903a2d207bfc"
@@ -1642,8 +1456,7 @@
         "wires": [
             [
                 "22edf69576887340",
-                "add3fbcef2802dd3",
-                "095fa042b481a797"
+                "add3fbcef2802dd3"
             ]
         ]
     },
@@ -1659,7 +1472,7 @@
         "finalize": "",
         "libs": [],
         "x": 900,
-        "y": 460,
+        "y": 520,
         "wires": [
             [
                 "7d3695e449ad3bb6",
@@ -1688,7 +1501,7 @@
         "to": "",
         "reg": false,
         "x": 1130,
-        "y": 460,
+        "y": 520,
         "wires": [
             []
         ]
@@ -1710,7 +1523,7 @@
         "senderr": false,
         "headers": [],
         "x": 710,
-        "y": 540,
+        "y": 620,
         "wires": [
             [
                 "dd3c626d7d5e74f1"
@@ -1731,7 +1544,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1100,
-        "y": 500,
+        "y": 580,
         "wires": []
     },
     {
@@ -1746,7 +1559,7 @@
         "finalize": "",
         "libs": [],
         "x": 910,
-        "y": 540,
+        "y": 620,
         "wires": [
             [
                 "e99094229ade9d81",
@@ -1775,93 +1588,6 @@
         "to": "",
         "reg": false,
         "x": 1130,
-        "y": 540,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "095fa042b481a797",
-        "type": "http request",
-        "z": "ef8f9b32dc650502",
-        "name": "get external chat ids",
-        "method": "GET",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "{{api}}/telegram-users/external-chat-ids",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 700,
-        "y": 620,
-        "wires": [
-            [
-                "056a2f70f9762df8"
-            ]
-        ]
-    },
-    {
-        "id": "c74c5365ea65f48c",
-        "type": "debug",
-        "z": "ef8f9b32dc650502",
-        "name": "users",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1110,
-        "y": 580,
-        "wires": []
-    },
-    {
-        "id": "056a2f70f9762df8",
-        "type": "function",
-        "z": "ef8f9b32dc650502",
-        "name": "map external ids",
-        "func": "msg.users = msg.payload;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 930,
-        "y": 620,
-        "wires": [
-            [
-                "c74c5365ea65f48c",
-                "18229914a7fde13e"
-            ]
-        ]
-    },
-    {
-        "id": "18229914a7fde13e",
-        "type": "change",
-        "z": "ef8f9b32dc650502",
-        "name": "set to flow",
-        "rules": [
-            {
-                "t": "set",
-                "p": "users",
-                "pt": "flow",
-                "to": "users",
-                "tot": "msg",
-                "dc": true
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1130,
         "y": 620,
         "wires": [
             []
@@ -1876,7 +1602,7 @@
             "975ad5c429fc95de"
         ],
         "x": 85,
-        "y": 2240,
+        "y": 1900,
         "wires": [
             [
                 "7bba0ebd14f364dd"
@@ -1890,7 +1616,7 @@
         "name": "save user",
         "info": "",
         "x": 120,
-        "y": 2180,
+        "y": 1840,
         "wires": []
     },
     {
@@ -1923,7 +1649,7 @@
         "senderr": false,
         "headers": [],
         "x": 940,
-        "y": 2240,
+        "y": 1900,
         "wires": [
             [
                 "51be6ad57264a8be"
@@ -1965,7 +1691,7 @@
         "to": "",
         "reg": false,
         "x": 230,
-        "y": 2240,
+        "y": 1900,
         "wires": [
             [
                 "df3d738c62a961c8"
@@ -1984,7 +1710,7 @@
         "finalize": "",
         "libs": [],
         "x": 730,
-        "y": 2240,
+        "y": 1900,
         "wires": [
             [
                 "9d65d2d55050c5cf"
@@ -2003,7 +1729,7 @@
         "finalize": "",
         "libs": [],
         "x": 490,
-        "y": 2240,
+        "y": 1900,
         "wires": [
             [
                 "12de6157bff48115"
@@ -2024,7 +1750,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1300,
-        "y": 2180,
+        "y": 1840,
         "wires": []
     },
     {
@@ -2039,7 +1765,7 @@
         "finalize": "",
         "libs": [],
         "x": 1130,
-        "y": 2240,
+        "y": 1900,
         "wires": [
             [
                 "d505aeed7a377193"
