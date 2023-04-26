@@ -1,17 +1,40 @@
+.centered-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-      .login-form {
-        max-width: 300px;
-      }
+form {
+  max-width: 400px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 24px;
+}
 
-      .login-form-margin {
-        margin-bottom: 16px;
-      }
+.fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 auto;
+  max-width: 400px;
+  width: 100%;
+}
 
-      .login-form-forgot {
-        float: right;
-      }
+nz-form-control {
+  display: flex;
+  align-items: center;
+}
 
-      .login-form-button {
-        width: 100%;
-      }
-    
+button[nz-button] {
+  margin-top: 16px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
