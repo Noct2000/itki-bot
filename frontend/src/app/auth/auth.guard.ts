@@ -5,12 +5,13 @@ import { ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
 import { TokenService } from './token.service';
+import {ROUTES} from "../../constants/routes.constants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  private readonly ROOT_PAGE_URL = '/';
+  private readonly MENU_PAGE_URL = ROUTES.menu;
   private readonly LOGIN_PAGE_URL = '/login';
 
   constructor(
@@ -30,7 +31,7 @@ export class AuthGuard implements CanActivate {
 
     if (hasToken) {
       if (this.isForbiddenUrl(state.url)) {
-        this.router.navigate([this.ROOT_PAGE_URL]);
+        this.router.navigate([this.MENU_PAGE_URL]);
 
         return false;
       }

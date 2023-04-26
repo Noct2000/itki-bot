@@ -1,0 +1,63 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <img src="../assets/telegram_image.svg" alt="logo">
+      <h1>ІТКІ телеграм бот</h1>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Конфігурація бота" nzIcon="setting">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="{{QUESTIONS_URL}}">Питання</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="{{CURATORS_URL}}">Куратори</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Статистика" nzIcon="area-chart">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="{{TELEGRAM_USERS_URL}}">Активні користувачі</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Адміністрування" nzIcon="team">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="{{SEND_MESSAGE_URL}}">Надіслати повідомлення</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Обліковий запис" nzIcon="solution">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a>Вийти з облікового запису</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <span class="trigger"
+                  nz-icon
+                  [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></span>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
