@@ -56,3 +56,15 @@ services:
     volumes:
       - ./node-red/config:/root/.node-red:delegated
       - /root/.node-red/node_modules
+
+  # FRONT
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/app:delegated
+    depends_on:
+      api:
+        condition: service_healthy
