@@ -18,6 +18,7 @@ import {TokenService} from "./token.service";
 import {LoginResponseDto} from "./login-response-dto";
 
 const refreshPathname = '/refresh';
+const loginPathname = '/login'
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -40,14 +41,20 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((error) => {
+        const url = new URL(error.url).pathname;
+
+        if (req.url.endsWith(loginPathname)) {
+          return next.handle(req);
+        }
+
         if (this.isForbiddenStatus(error)
-          && new URL(error.url).pathname === refreshPathname) {
+          && url === refreshPathname && this.tokenService.getRefreshToken() !== '') {
           this.authService.logout();
 
           return throwError(error);
         }
 
-        if (this.isForbiddenStatus(error)) {
+        if (this.isForbiddenStatus(error) && this.tokenService.getRefreshToken() !== '') {
           return this.refreshToken(req, next);
         }
         return throwError(error);

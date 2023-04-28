@@ -19,7 +19,7 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   max-width: 400px;
   width: 100%;
 }
@@ -30,7 +30,7 @@ nz-form-control {
 }
 
 button[nz-button] {
-  margin-top: 16px;
+  margin-top: 0px;
 }
 
 .button-row {
@@ -38,3 +38,10 @@ button[nz-button] {
   justify-content: center;
   align-items: center;
 }
+
+nz-form-control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Add this line */
+}
+

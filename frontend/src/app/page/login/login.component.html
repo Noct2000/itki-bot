@@ -10,8 +10,8 @@
       <nz-form-item>
         <nz-form-control nzErrorTip="Password is required" [nzValidateStatus]="getValidationStatus('password')">
           <input type="{{ showPassword ? 'text' : 'password' }}" nz-input formControlName="password" placeholder="password">
-          <button nz-button nzType="link" (click)="toggleShowPassword()">{{ showPassword ? 'Hide' : 'Show' }}</button>
         </nz-form-control>
+        <button nz-button nzType="link" (click)="toggleShowPassword()">{{ showPassword ? 'Hide' : 'Show' }}</button>
       </nz-form-item>
     </div>
 
