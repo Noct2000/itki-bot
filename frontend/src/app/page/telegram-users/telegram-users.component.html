@@ -1,1 +1,22 @@
-<p>telegram-users works!</p>
+<nz-typography>Кількість кристувачів, що доєдналися до бота: {{(telegramUsers$ | async)?.length}}</nz-typography>
+<nz-table #basicTable [nzData]="telegramUsers">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Ім'я</th>
+    <th>Прізвище</th>
+    <th>Nickname</th>
+    <th>Зовнішній ідентифікатор чату</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{ data.id }}</td>
+    <td>{{ data.firstName }}</td>
+    <td>{{ data.lastName ? data.lastName : '-' }}</td>
+    <td>{{ data.username ? data.username : '-' }}</td>
+    <td>{{ data.externalChatId }}</td>
+  </tr>
+  </tbody>
+</nz-table>
+

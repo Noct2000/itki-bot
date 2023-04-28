@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {MenuComponent} from "./menu.component";
-import {QuestionsComponent} from "../questions/questions.component";
-import {AuthGuard} from "../../auth/auth.guard";
-import {CuratorsComponent} from "../curators/curators.component";
-import {TelegramUsersComponent} from "../telegram-users/telegram-users.component";
-import {SendMessageComponent} from "../send-message/send-message.component";
+import { MenuComponent } from './menu.component';
+import { QuestionsComponent } from '../questions/questions.component';
+import { AuthGuard } from '../../auth/auth.guard';
+import { CuratorsComponent } from '../curators/curators.component';
+import { SendMessageComponent } from '../send-message/send-message.component';
 
 const routes: Routes = [
   {
@@ -24,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'telegram-users',
-        component: TelegramUsersComponent,
+        loadChildren: () => import('../telegram-users/telegram-users.module').then(m => m.TelegramUsersModule),
         canActivate: [AuthGuard],
       },
       {
