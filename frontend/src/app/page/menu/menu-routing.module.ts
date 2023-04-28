@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MenuComponent } from './menu.component';
-import { QuestionsComponent } from '../questions/questions.component';
 import { AuthGuard } from '../../auth/auth.guard';
 import { CuratorsComponent } from '../curators/curators.component';
 import { SendMessageComponent } from '../send-message/send-message.component';
@@ -13,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: 'questions',
-        component: QuestionsComponent,
+        loadChildren: () => import('../questions/questions.module').then(m => m.QuestionsModule),
         canActivate: [AuthGuard],
       },
       {
