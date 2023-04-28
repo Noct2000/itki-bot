@@ -9,3 +9,6 @@ down-live:
 
 up-live:
 	docker compose -f docker-compose-live-reload.yml up --build
+
+clear:
+	docker system prune -a --volumes --force
