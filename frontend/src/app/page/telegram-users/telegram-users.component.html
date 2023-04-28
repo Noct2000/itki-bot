@@ -1,5 +1,9 @@
 <nz-typography>Кількість кристувачів, що доєдналися до бота: {{(telegramUsers$ | async)?.length}}</nz-typography>
-<nz-table #basicTable [nzData]="telegramUsers">
+<nz-table
+  #basicTable
+  [nzData]="telegramUsers"
+  [nzPageSize]="5"
+>
   <thead>
   <tr>
     <th>Id</th>

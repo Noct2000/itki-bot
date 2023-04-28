@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription, tap} from "rxjs";
-import {Question} from "../../model/question";
-import {QuestionService} from "../../service/question.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Question } from '../../model/question';
+import { QuestionService } from '../../service/question.service';
+import { CreateQuestionsModalComponent } from '../../modal/create-questions-modal/create-questions-modal.component';
 
 @Component({
   selector: 'app-questions',
@@ -14,6 +15,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   constructor(
     private questionService: QuestionService,
+    private createQuestionModal: CreateQuestionsModalComponent,
   ) {
   }
 
@@ -38,6 +40,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   showCreateModal() {
-    console.log(`CREATE`)
+    this.createQuestionModal.showModal();
   }
 }

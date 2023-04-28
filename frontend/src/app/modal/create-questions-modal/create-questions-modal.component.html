@@ -1,0 +1,42 @@
+<form nz-form [formGroup]="questionForm">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="question" class="text-label">Текст питання</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <textarea
+        nz-input
+        rows="4"
+        name="question"
+        type="text"
+        id="question"
+        formControlName="question"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="answer" class="text-label">Текст відповіді</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <textarea
+        nz-input
+        rows="4"
+        name="answer"
+        type="text"
+        id="answer"
+        formControlName="answer"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div *nzModalFooter>
+  <button nz-button nzType="default"
+          (click)="handleCancel()">
+    Скасувати
+  </button>
+  <button nz-button
+          nzType="primary"
+          [nzLoading]="loading"
+          [disabled]="isInvalid()"
+          (click)="handleOk()">
+    Додати
+  </button>
+</div>
