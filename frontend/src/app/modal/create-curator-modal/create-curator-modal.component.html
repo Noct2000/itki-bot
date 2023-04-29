@@ -1,0 +1,64 @@
+<form nz-form [formGroup]="curatorForm">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">Ім'я</nz-form-label>
+    <nz-form-control
+      [nzSpan]="12"
+      [nzAutoTips]="nameAutoTips"
+    >
+      <input
+        nz-input
+        formControlName="name"
+        placeholder="Тарас"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">Прізвище</nz-form-label>
+    <nz-form-control [nzSpan]="12" [nzAutoTips]="lastNameAutoTips">
+      <input
+        nz-input
+        formControlName="lastName"
+        placeholder="Шевченко"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">По батькові</nz-form-label>
+    <nz-form-control [nzSpan]="12" [nzAutoTips]="additionalNameAutoTips">
+      <input
+        nz-input
+        formControlName="additionalName"
+        placeholder="Григорович"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">Кафедра</nz-form-label>
+    <nz-form-control [nzSpan]="12" [nzAutoTips]="departmentAutoTips">
+      <input
+        nz-input
+        formControlName="department"
+        placeholder="ІТКІ"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">Посада</nz-form-label>
+    <nz-form-control [nzSpan]="12" [nzAutoTips]="positionAutoTips">
+      <input
+        nz-input
+        formControlName="position"
+        placeholder="письменник"/>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div *nzModalFooter>
+  <button
+    nz-button
+    nzType="primary"
+    (click)="handleCancel()"
+  >Скасувати</button>
+  <button
+    nz-button
+    nzType="primary"
+    [disabled]="curatorForm.invalid"
+    (click)="handleOk()"
+  >Додати</button>
+</div>

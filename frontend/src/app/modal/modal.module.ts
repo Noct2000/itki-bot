@@ -7,12 +7,14 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreateCuratorModalComponent } from './create-curator-modal/create-curator-modal.component';
 
 
 @NgModule({
   declarations: [
     ExitModalComponent,
     CreateQuestionsModalComponent,
+    CreateCuratorModalComponent,
   ],
   imports: [
     NzModalModule,
@@ -26,10 +28,12 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [
     ExitModalComponent,
     CreateQuestionsModalComponent,
+    CreateCuratorModalComponent,
   ],
   exports: [
     ExitModalComponent,
     CreateQuestionsModalComponent,
+    CreateCuratorModalComponent,
   ],
 })
 export class ModalModule { }
