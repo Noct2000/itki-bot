@@ -2,6 +2,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzFor="question" class="text-label">Текст питання</nz-form-label>
     <nz-form-control [nzSpan]="14">
+      <nz-textarea-count [nzMaxCharacterCount]="500">
       <textarea
         nz-input
         rows="4"
@@ -10,12 +11,14 @@
         id="question"
         formControlName="question"
       ></textarea>
+      </nz-textarea-count>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzFor="answer" class="text-label">Текст відповіді</nz-form-label>
     <nz-form-control [nzSpan]="14">
+      <nz-textarea-count [nzMaxCharacterCount]="500">
       <textarea
         nz-input
         rows="4"
@@ -24,6 +27,7 @@
         id="answer"
         formControlName="answer"
       ></textarea>
+      </nz-textarea-count>
     </nz-form-control>
   </nz-form-item>
 </form>

@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MenuComponent } from './menu.component';
 import { AuthGuard } from '../../auth/auth.guard';
-import { CuratorsComponent } from '../curators/curators.component';
-import { SendMessageComponent } from '../send-message/send-message.component';
 
 const routes: Routes = [
   {
@@ -17,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'curators',
-        component: CuratorsComponent,
+        loadChildren: () => import('../curators/curators.module').then(m => m.CuratorsModule),
         canActivate: [AuthGuard],
       },
       {
@@ -27,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: 'send-message',
-        component: SendMessageComponent,
+        loadChildren: () => import('../send-message/send-message.module').then(m => m.SendMessageModule),
         canActivate: [AuthGuard],
       },
     ],
