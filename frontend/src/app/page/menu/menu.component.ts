@@ -13,6 +13,7 @@ export class MenuComponent {
   readonly CURATORS_URL = ROUTES.curators;
   readonly TELEGRAM_USERS_URL = ROUTES.telegramUsers;
   readonly SEND_MESSAGE_URL = ROUTES.sendMessage;
+  readonly GROUPS_URL = ROUTES.groups;
 
   constructor(
     private exitModal: ExitModalComponent,

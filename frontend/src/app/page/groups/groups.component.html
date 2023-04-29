@@ -1,0 +1,25 @@
+<nz-typography>Тут всі групи з кураторами</nz-typography>
+<nz-table
+  #basicTable [nzData]="groups"
+  [nzScroll]="{ x: '100%' }"
+  [nzPageSize]="5"
+>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Назва</th>
+    <th>Куратор</th>
+    <th>Видалити</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{ data.id }}</td>
+    <td>{{ data.name }}</td>
+    <td>{{ toStringCurator(data.curator) }}</td>
+    <td>
+      <a (click) = "delete(data.id)">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

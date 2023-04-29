@@ -31,20 +31,16 @@ export class CreateQuestionsModalComponent implements OnInit {
         Validators.maxLength(500),
       ]]
     });
-
-    console.log(`on init: this.isInvalid() = ${this.isInvalid()}`)
   }
 
   showModal(): void {
-    console.log(`showModal: this.isInvalid() = ${this.isInvalid()}`);
-
     this.nzModalService.closeAll();
     this.nzModalService.create({
       nzTitle: 'Додавання нового питання',
       nzWidth: '40%',
       nzMaskClosable: false,
-      nzOnCancel: () => console.log('CANCEL'),
-      nzOnOk: () => console.log('OK'),
+      nzOnCancel: () => this.handleCancel(),
+      nzOnOk: () => this.handleOk(),
       nzContent: CreateQuestionsModalComponent,
       nzClosable: false,
       nzOkText: 'Додати',

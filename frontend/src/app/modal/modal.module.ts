@@ -8,6 +8,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateCuratorModalComponent } from './create-curator-modal/create-curator-modal.component';
+import { CreateGroupModalComponent } from './create-group-modal/create-group-modal.component';
+import {NzMessageServiceModule} from "ng-zorro-antd/message";
 
 
 @NgModule({
@@ -15,6 +17,7 @@ import { CreateCuratorModalComponent } from './create-curator-modal/create-curat
     ExitModalComponent,
     CreateQuestionsModalComponent,
     CreateCuratorModalComponent,
+    CreateGroupModalComponent,
   ],
   imports: [
     NzModalModule,
@@ -24,16 +27,19 @@ import { CreateCuratorModalComponent } from './create-curator-modal/create-curat
     NzButtonModule,
     ReactiveFormsModule,
     NzFormModule,
+    NzMessageServiceModule,
   ],
   providers: [
     ExitModalComponent,
     CreateQuestionsModalComponent,
     CreateCuratorModalComponent,
+    CreateGroupModalComponent,
   ],
   exports: [
     ExitModalComponent,
     CreateQuestionsModalComponent,
     CreateCuratorModalComponent,
+    CreateGroupModalComponent,
   ],
 })
 export class ModalModule { }

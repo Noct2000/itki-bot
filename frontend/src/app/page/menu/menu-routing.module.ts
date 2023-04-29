@@ -28,6 +28,11 @@ const routes: Routes = [
         loadChildren: () => import('../send-message/send-message.module').then(m => m.SendMessageModule),
         canActivate: [AuthGuard],
       },
+      {
+        path: 'groups',
+        loadChildren: () => import('../groups/groups.module').then(m => m.GroupsModule),
+        canActivate: [AuthGuard],
+      },
     ],
   },
 ];

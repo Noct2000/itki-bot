@@ -3,10 +3,10 @@ import {
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators
-} from "@angular/forms";
-import {NzModalService} from "ng-zorro-antd/modal";
-import {CuratorService} from "../../service/curator.service";
-import {CuratorRequestDto} from "../../dto/curator-request-dto";
+} from '@angular/forms';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { CuratorService } from '../../service/curator.service';
+import { CuratorRequestDto } from '../../dto/curator-request-dto';
 
 @Component({
   selector: 'app-create-curator-modal',
@@ -103,11 +103,11 @@ export class CreateCuratorModalComponent {
         position,
       } = this.curatorForm.value;
       this.curatorService.save(new CuratorRequestDto(
-        name,
-        lastName,
-        additionalName,
-        department,
-        position,
+        name.trim(),
+        lastName.trim(),
+        additionalName.trim(),
+        department.trim(),
+        position.trim(),
       ))
         .subscribe();
       this.nzModalService.closeAll();

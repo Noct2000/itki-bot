@@ -5,4 +5,5 @@ export const ROUTES = {
   curators: '/menu/curators',
   telegramUsers: '/menu/telegram-users',
   sendMessage: '/menu/send-message',
+  groups: '/menu/groups',
 };

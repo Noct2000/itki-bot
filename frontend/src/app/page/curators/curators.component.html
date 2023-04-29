@@ -22,6 +22,7 @@
     <th>По батькові</th>
     <th>Кафедра</th>
     <th>Посада</th>
+    <th>Додати групу</th>
     <th>Видалити</th>
   </tr>
   </thead>
@@ -33,6 +34,16 @@
     <td>{{ data.additionalName }}</td>
     <td>{{ data.department }}</td>
     <td>{{ data.position }}</td>
+    <td>
+      <button
+        nz-button
+        nzType="link"
+        (click) = "addGroup(data)"
+      >
+        <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
+        Add group
+      </button>
+    </td>
     <td>
       <button
         nz-button
