@@ -5,6 +5,7 @@ import com.itki.api.repository.TelegramUserRepository;
 import com.itki.api.service.TelegramUserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,5 +34,11 @@ public class TelegramUserServiceImpl
   @Override
   public List<String> getAllExternalChatIds() {
     return telegramUserRepository.getAllExternalChatIds();
+  }
+
+  @Override
+  @Transactional
+  public void deleteByExternalChatId(String externalChatId) {
+    telegramUserRepository.deleteTelegramUserByExternalChatId(externalChatId);
   }
 }
