@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 export class MessageService {
   private readonly apiUrl = environment.apiBaseUrl;
   private readonly sendTextMessageUrl = `${this.apiUrl}/tg/broadcast/text`;
+  private readonly sendPhotoMessageUrl = `${this.apiUrl}/tg/broadcast/photo`;
 
   constructor(
     private httpClient: HttpClient,
@@ -19,5 +20,15 @@ export class MessageService {
       this.sendTextMessageUrl,
       text,
       );
+  }
+
+  sendPhoto(text: string, photo: any): Observable<void> {
+    const formData = new FormData();
+    formData.append('caption', text);
+    formData.append('photo', photo);
+    return this.httpClient.post<void>(
+      this.sendPhotoMessageUrl,
+      formData
+    );
   }
 }

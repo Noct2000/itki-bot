@@ -1,0 +1,50 @@
+<form nz-form [formGroup]="captionForm">
+  <nz-form-item nzJustify="center" class="caption">
+    <nz-form-label nzSpan="4" nzFor="caption">Припис до фото</nz-form-label>
+    <nz-form-control nzSpan="8">
+      <nz-textarea-count [nzMaxCharacterCount]="1000">
+      <textarea
+        nz-input
+        rows="4"
+        type="text"
+        name="caption"
+        id="caption"
+        formControlName="caption"
+        placeholder="Це поле не обовєязкове"
+      ></textarea>
+      </nz-textarea-count>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nzJustify="center">
+    <nz-upload
+      nzType="drag"
+      [nzShowButton]="true"
+      nzListType="picture"
+      nzAccept="image/*"
+      [nzSize]="10240"
+      [nzDisabled]="fileList.length !== 0"
+      [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload"
+
+    >
+      <p class="ant-upload-drag-icon">
+        <span nz-icon nzType="inbox"></span>
+      </p>
+      <p class="ant-upload-text">Щоб завантажити клікніть або перетягніть файл</p>
+      <p class="ant-upload-hint">
+        Підтримуються зображення. Максимальна кількість фото 1, максимальний розмір - 10MB
+      </p>
+    </nz-upload>
+  </nz-form-item>
+  <nz-form-item nzJustify="end" nzAlign="bottom">
+    <button
+      nz-button
+      [nzType]="'primary'"
+      [nzLoading]="uploading"
+      (click)="handleUpload()"
+      [disabled]="fileList.length === 0 || captionForm.invalid"
+      style="margin-top: 16px"
+    >
+      {{ uploading ? 'Завантаження' : 'Надіслати' }}
+    </button>
+  </nz-form-item>
+</form>

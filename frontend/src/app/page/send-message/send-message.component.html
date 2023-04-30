@@ -10,5 +10,6 @@
   </nz-row>
   <div class="message-form">
     <app-send-text *ngIf="messageType === 'text'"></app-send-text>
+    <app-send-photo *ngIf="messageType === 'photo'"></app-send-photo>
   </div>
 </ng-container>
