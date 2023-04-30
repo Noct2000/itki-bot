@@ -11,5 +11,6 @@
   <div class="message-form">
     <app-send-text *ngIf="messageType === 'text'"></app-send-text>
     <app-send-photo *ngIf="messageType === 'photo'"></app-send-photo>
+    <app-send-file *ngIf="messageType === 'file'"></app-send-file>
   </div>
 </ng-container>

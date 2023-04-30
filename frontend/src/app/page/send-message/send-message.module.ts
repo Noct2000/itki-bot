@@ -13,6 +13,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { SendPhotoComponent } from './forms/send-photo/send-photo.component';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { SendFileComponent } from './forms/send-file/send-file.component';
 
 
 
@@ -35,6 +36,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     SendMessageComponent,
     SendTextComponent,
     SendPhotoComponent,
+    SendFileComponent,
   ],
   exports: [SendMessageComponent]
 })

@@ -10,6 +10,7 @@ export class MessageService {
   private readonly apiUrl = environment.apiBaseUrl;
   private readonly sendTextMessageUrl = `${this.apiUrl}/tg/broadcast/text`;
   private readonly sendPhotoMessageUrl = `${this.apiUrl}/tg/broadcast/photo`;
+  private readonly sendDocumentMessageUrl = `${this.apiUrl}/tg/broadcast/file`;
 
   constructor(
     private httpClient: HttpClient,
@@ -28,6 +29,16 @@ export class MessageService {
     formData.append('photo', photo);
     return this.httpClient.post<void>(
       this.sendPhotoMessageUrl,
+      formData
+    );
+  }
+
+  sendFile(text: string, document: any): Observable<void> {
+    const formData = new FormData();
+    formData.append('caption', text);
+    formData.append('document', document);
+    return this.httpClient.post<void>(
+      this.sendDocumentMessageUrl,
       formData
     );
   }
