@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Curator } from '../../model/curator';
 import { GroupService } from '../../service/group.service';
 import { GroupRequestDto } from '../../dto/group-request-dto';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-create-group-modal',
   templateUrl: './create-group-modal.component.html',
   styleUrls: ['./create-group-modal.component.scss']
 })
-export class CreateGroupModalComponent implements OnInit {
+export class CreateGroupModalComponent implements OnInit, OnDestroy {
   curator!: Curator;
   groupForm!: UntypedFormGroup;
+  groupSubscription!: Subscription;
 
   nameAutoTips: Record<string, Record<string, string>> = {
     default: {
@@ -40,6 +42,12 @@ export class CreateGroupModalComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.groupSubscription) {
+      this.groupSubscription.unsubscribe();
+    }
+  }
+
   showModal(curator: Curator): void {
     this.nzModalService.closeAll();
     this.nzModalService.create({
@@ -59,7 +67,7 @@ export class CreateGroupModalComponent implements OnInit {
   handleOk(): void {
     if (this.groupForm.valid) {
       const { name } = this.groupForm.value;
-      this.groupService.save(new GroupRequestDto(name, this.curator.id))
+      this.groupSubscription = this.groupService.save(new GroupRequestDto(name, this.curator.id))
         .subscribe(
           () => this.nzMessageService.success(`Ви успішно створили групу з назвою ${name}`)
         );
