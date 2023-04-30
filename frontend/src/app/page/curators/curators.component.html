@@ -48,6 +48,7 @@
       <button
         nz-button
         nzType="primary"
+        [disabled]="(groupService.getGroupsCountByCuratorId(data.id) | async) !== 0"
         [nzDanger]="true"
         (click) = "delete(data.id)"
       >Delete</button>

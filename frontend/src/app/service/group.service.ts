@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, tap, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap, withLatestFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Group } from '../model/group';
 import { GroupRequestDto } from '../dto/group-request-dto';
@@ -60,5 +60,13 @@ export class GroupService {
           }
         )
       );
+  }
+
+  getGroupsCountByCuratorId(id: number): Observable<number> {
+    return this.groups$.pipe(
+      map(
+        (groups) => groups.filter((group) => group.curator.id == id).length
+      )
+    );
   }
 }
