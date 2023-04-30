@@ -60,22 +60,27 @@ export class CreateCuratorModalComponent {
       name: ['', [
         Validators.required,
         Validators.maxLength(30),
+        Validators.pattern(/^(?!\s*$).+/),
       ]],
       lastName: ['', [
         Validators.required,
-        Validators.maxLength(30)
+        Validators.maxLength(30),
+        Validators.pattern(/^(?!\s*$).+/),
       ]],
       additionalName: ['', [
         Validators.required,
-        Validators.maxLength(30)
+        Validators.maxLength(30),
+        Validators.pattern(/^(?!\s*$).+/),
       ]],
       department: ['', [
         Validators.required,
-        Validators.maxLength(100)
+        Validators.maxLength(100),
+        Validators.pattern(/^(?!\s*$).+/),
       ]],
       position: ['', [
         Validators.required,
-        Validators.maxLength(20)
+        Validators.maxLength(20),
+        Validators.pattern(/^(?!\s*$).+/),
       ]],
     });
   }

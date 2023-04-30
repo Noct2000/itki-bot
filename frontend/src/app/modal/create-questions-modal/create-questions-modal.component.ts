@@ -25,10 +25,12 @@ export class CreateQuestionsModalComponent implements OnInit {
       question: ['', [
         Validators.required,
         Validators.maxLength(500),
+        Validators.pattern(/^(?!\s*$).+/),
       ]],
       answer: ['', [
         Validators.required,
         Validators.maxLength(500),
+        Validators.pattern(/^(?!\s*$).+/),
       ]]
     });
   }

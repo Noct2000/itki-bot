@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./send-message.component.scss']
 })
 export class SendMessageComponent {
-
+  messageType = 'text';
 }
