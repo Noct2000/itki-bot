@@ -4,6 +4,7 @@ import com.itki.api.service.TelegramBroadcastService;
 import com.itki.api.service.TelegramUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,14 +18,18 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.media.InputMedia;
 import org.telegram.telegrambots.meta.api.objects.media.InputMediaPhoto;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class TelegramBroadcastServiceImpl
     extends TelegramWebhookBot implements TelegramBroadcastService {
+  private static final String BLOCKING_MESSAGE = "Error sending message: "
+      + "[403] Forbidden: bot was blocked by the user";
   private final TelegramUserService telegramUserService;
   @Value("${TELEGRAM_TOKEN}")
   private String telegramToken;
@@ -40,7 +45,11 @@ public class TelegramBroadcastServiceImpl
       sendDocument.setChatId(externalChatId);
       sendDocument.setDocument(this.toInputFile(file));
       sendDocument.setCaption(caption);
-      execute(sendDocument);
+      try {
+        execute(sendDocument);
+      } catch (TelegramApiRequestException telegramApiRequestException) {
+        handleUserBlocking(externalChatId, telegramApiRequestException);
+      }
     }
   }
 
@@ -53,7 +62,11 @@ public class TelegramBroadcastServiceImpl
       sendPhoto.setPhoto(this.toInputFile(photo));
       sendPhoto.setCaption(caption);
       sendPhoto.setChatId(externalChatId);
-      execute(sendPhoto);
+      try {
+        execute(sendPhoto);
+      } catch (TelegramApiRequestException telegramApiRequestException) {
+        handleUserBlocking(externalChatId, telegramApiRequestException);
+      }
     }
   }
 
@@ -65,7 +78,11 @@ public class TelegramBroadcastServiceImpl
     for (String externalChatId: externalChatIds) {
       sendMessage.setChatId(externalChatId);
       sendMessage.setText(text);
-      execute(sendMessage);
+      try {
+        execute(sendMessage);
+      } catch (TelegramApiRequestException telegramApiRequestException) {
+        handleUserBlocking(externalChatId, telegramApiRequestException);
+      }
     }
   }
 
@@ -79,7 +96,11 @@ public class TelegramBroadcastServiceImpl
           Arrays.stream(photos).map(this::toInputPhotoMedia).collect(Collectors.toList())
       );
       sendMediaGroup.setChatId(externalChatId);
-      execute(sendMediaGroup);
+      try {
+        execute(sendMediaGroup);
+      } catch (TelegramApiRequestException telegramApiRequestException) {
+        handleUserBlocking(externalChatId, telegramApiRequestException);
+      }
     }
   }
 
@@ -113,5 +134,17 @@ public class TelegramBroadcastServiceImpl
     InputMediaPhoto inputMediaPhoto = new InputMediaPhoto();
     inputMediaPhoto.setMedia(multipartFile.getInputStream(), multipartFile.getOriginalFilename());
     return inputMediaPhoto;
+  }
+
+  private void handleUserBlocking(
+      String externalChatId,
+      TelegramApiRequestException telegramApiRequestException
+  ) throws TelegramApiRequestException {
+    if (telegramApiRequestException.getMessage().contains(BLOCKING_MESSAGE)) {
+      log.info("user with externalChatId '{}' was deleted", externalChatId);
+      telegramUserService.deleteByExternalChatId(externalChatId);
+    } else {
+      throw telegramApiRequestException;
+    }
   }
 }

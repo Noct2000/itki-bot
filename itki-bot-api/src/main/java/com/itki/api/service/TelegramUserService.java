@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface TelegramUserService extends CrudService<TelegramUser> {
   List<String> getAllExternalChatIds();
+
+  void deleteByExternalChatId(String externalChatId);
 }
