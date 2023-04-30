@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { HttpClient } from '@angular/common/http';
-import { NzMessageService } from "ng-zorro-antd/message";
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { MessageService } from '../../../../service/message.service';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';

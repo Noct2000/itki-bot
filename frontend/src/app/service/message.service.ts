@@ -11,6 +11,8 @@ export class MessageService {
   private readonly sendTextMessageUrl = `${this.apiUrl}/tg/broadcast/text`;
   private readonly sendPhotoMessageUrl = `${this.apiUrl}/tg/broadcast/photo`;
   private readonly sendDocumentMessageUrl = `${this.apiUrl}/tg/broadcast/file`;
+  private readonly sendPhotoGroupMessageUrl = `${this.apiUrl}/tg/broadcast/mediaGroup/photo`;
+
 
   constructor(
     private httpClient: HttpClient,
@@ -39,6 +41,17 @@ export class MessageService {
     formData.append('document', document);
     return this.httpClient.post<void>(
       this.sendDocumentMessageUrl,
+      formData
+    );
+  }
+
+  sendPhotoGroup(photos: any[]): Observable<void> {
+    const formData = new FormData();
+    photos.forEach(
+      photo => formData.append('photo', photo)
+    );
+    return this.httpClient.post<void>(
+      this.sendPhotoGroupMessageUrl,
       formData
     );
   }
