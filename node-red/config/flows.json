@@ -118,7 +118,7 @@
                 "description": "Отримати останній розклад ФІТ"
             }
         ],
-        "x": 320,
+        "x": 340,
         "y": 340,
         "wires": []
     },
@@ -677,7 +677,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1090,
+        "x": 1130,
         "y": 480,
         "wires": []
     },
@@ -844,7 +844,7 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 490,
+        "x": 530,
         "y": 220,
         "wires": [
             [
@@ -894,7 +894,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1300,
+        "x": 1340,
         "y": 220,
         "wires": []
     },
@@ -909,7 +909,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 700,
+        "x": 740,
         "y": 220,
         "wires": [
             [
@@ -937,7 +937,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 290,
+        "x": 330,
         "y": 220,
         "wires": [
             [
@@ -983,7 +983,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1130,
+        "x": 1170,
         "y": 220,
         "wires": [
             [
@@ -1286,7 +1286,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
+        "x": 360,
         "y": 100,
         "wires": [
             [
@@ -1310,7 +1310,7 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 650,
+        "x": 710,
         "y": 100,
         "wires": [
             [
@@ -1330,7 +1330,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 490,
+        "x": 550,
         "y": 100,
         "wires": [
             [
@@ -1358,7 +1358,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 830,
+        "x": 890,
         "y": 100,
         "wires": [
             []
@@ -1377,7 +1377,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 750,
+        "x": 810,
         "y": 40,
         "wires": []
     },
@@ -1408,7 +1408,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
+        "x": 340,
         "y": 560,
         "wires": [
             [
@@ -1432,7 +1432,7 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 680,
+        "x": 720,
         "y": 520,
         "wires": [
             [
@@ -1451,7 +1451,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
+        "x": 510,
         "y": 560,
         "wires": [
             [
@@ -1471,7 +1471,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 900,
+        "x": 940,
         "y": 520,
         "wires": [
             [
@@ -1500,7 +1500,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1130,
+        "x": 1170,
         "y": 520,
         "wires": [
             []
@@ -1522,7 +1522,7 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 710,
+        "x": 750,
         "y": 620,
         "wires": [
             [
@@ -1543,7 +1543,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1100,
+        "x": 1140,
         "y": 580,
         "wires": []
     },
@@ -1558,7 +1558,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 910,
+        "x": 950,
         "y": 620,
         "wires": [
             [
@@ -1587,7 +1587,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1130,
+        "x": 1170,
         "y": 620,
         "wires": [
             []
@@ -1652,7 +1652,7 @@
         "y": 1900,
         "wires": [
             [
-                "51be6ad57264a8be"
+                "d505aeed7a377193"
             ]
         ]
     },
@@ -1754,25 +1754,6 @@
         "wires": []
     },
     {
-        "id": "51be6ad57264a8be",
-        "type": "function",
-        "z": "ef8f9b32dc650502",
-        "name": "add to local users",
-        "func": "if (!msg.users.includes(msg.originalMessage.from.id.toString())) {\n    msg.users.push(msg.originalMessage.from.id.toString())\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1130,
-        "y": 1900,
-        "wires": [
-            [
-                "d505aeed7a377193"
-            ]
-        ]
-    },
-    {
         "id": "4350201ea5960830",
         "type": "function",
         "z": "ef8f9b32dc650502",
@@ -1855,7 +1836,7 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 940,
+        "x": 980,
         "y": 220,
         "wires": [
             [
