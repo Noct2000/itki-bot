@@ -1,0 +1,33 @@
+<nz-row nzJustify="center">
+  <nz-upload
+    nzType="drag"
+    [nzShowButton]="true"
+    nzListType="picture"
+    nzAccept="image/*"
+    [nzSize]="10240"
+    [nzMultiple]="true"
+    [nzDisabled]="fileList.length === 50"
+    [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload"
+
+  >
+    <p class="ant-upload-drag-icon">
+      <span nz-icon nzType="inbox"></span>
+    </p>
+    <p class="ant-upload-text">Щоб завантажити клікніть або перетягніть файл</p>
+    <p class="ant-upload-hint">
+      Підтримуються зображення. Максимальна кількість фото 50, максимальний розмір - 10MB
+    </p>
+  </nz-upload>
+</nz-row>
+<nz-row nzJustify="end" nzAlign="bottom">
+  <button
+    nz-button
+    [nzType]="'primary'"
+    [nzLoading]="uploading"
+    (click)="handleUpload()"
+    [disabled]="fileList.length === 0"
+    class="upload-btn"
+  >
+    {{ uploading ? 'Завантаження' : 'Надіслати' }}
+  </button>
+</nz-row>

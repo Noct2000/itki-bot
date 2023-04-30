@@ -1,0 +1,27 @@
+<div class="centered-form">
+  <form nz-form [formGroup]="loginForm">
+    <div class="fields">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Username is required" [nzValidateStatus]="getValidationStatus('username')">
+          <input type="text" nz-input formControlName="username" placeholder="login">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Password is required" [nzValidateStatus]="getValidationStatus('password')">
+          <input type="{{ showPassword ? 'text' : 'password' }}" nz-input formControlName="password" placeholder="password">
+        </nz-form-control>
+        <button nz-button nzType="link" (click)="toggleShowPassword()">{{ showPassword ? 'Hide' : 'Show' }}</button>
+      </nz-form-item>
+    </div>
+
+    <nz-row nzAlign="middle" nzJustify="center">
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="!loginForm.valid"
+        (click)="onSubmit()"
+      >Log in</button>
+    </nz-row>
+  </form>
+</div>

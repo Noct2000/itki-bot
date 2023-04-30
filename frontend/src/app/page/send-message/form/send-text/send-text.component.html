@@ -1,0 +1,27 @@
+<form nz-form [formGroup]="textForm">
+  <nz-form-item nzJustify="center">
+    <nz-form-label nzSpan="4">Текст повідомлення</nz-form-label>
+    <nz-form-control nzSpan="8">
+      <nz-textarea-count [nzMaxCharacterCount]="4000">
+      <textarea
+        nz-input
+        rows="4"
+        name="answer"
+        type="text"
+        id="answer"
+        formControlName="text"
+      ></textarea>
+      </nz-textarea-count>
+    </nz-form-control>
+    <nz-form-item nzJustify="end" nzAlign="bottom">
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="textForm.invalid"
+        (click)="sendMessage()"
+      >
+        <span nz-icon nzType="send" nzTheme="outline"></span>
+      </button>
+    </nz-form-item>
+  </nz-form-item>
+</form>

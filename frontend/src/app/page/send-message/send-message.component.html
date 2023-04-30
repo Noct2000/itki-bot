@@ -1,0 +1,17 @@
+<nz-typography class="text">Тут ви можете надіслати повідомлення усім активним користувачам</nz-typography>
+<ng-container class="content">
+  <nz-row nzAlign="middle" nzJustify="center">
+    <nz-radio-group [(ngModel)]="messageType">
+      <label nz-radio-button nzValue="text"><span>Текстове повідомлення</span></label>
+      <label nz-radio-button nzValue="photo"><span>Фото з приписом</span></label>
+      <label nz-radio-button nzValue="file"><span>Файл з приписом</span></label>
+      <label nz-radio-button nzValue="photo-group"><span>Група фото</span></label>
+    </nz-radio-group>
+  </nz-row>
+  <div class="message-form">
+    <app-send-text *ngIf="messageType === 'text'"></app-send-text>
+    <app-send-photo *ngIf="messageType === 'photo'"></app-send-photo>
+    <app-send-file *ngIf="messageType === 'file'"></app-send-file>
+    <app-send-photo-group *ngIf="messageType === 'photo-group'"></app-send-photo-group>
+  </div>
+</ng-container>

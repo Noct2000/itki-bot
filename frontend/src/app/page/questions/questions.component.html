@@ -1,0 +1,35 @@
+<nz-typography>Тут знаходяться всі питання на які бот може відповісти</nz-typography>
+<div class="add-button">
+  <button
+    nz-button
+    nzType="primary"
+    (click)="showCreateModal()"
+  >
+    <span nz-icon nzType="plus" nzTheme="outline"></span>
+    Додати нове питання
+  </button>
+</div>
+<nz-table
+  #basicTable [nzData]="questions"
+  [nzScroll]="{ x: '100%' }"
+  [nzPageSize]="5"
+>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Запитання</th>
+    <th>Відповідь</th>
+    <th>Видалити</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{ data.questionId }}</td>
+    <td>{{ data.questionText }}</td>
+    <td>{{ data.answerText }}</td>
+    <td>
+      <a (click) = "delete(data.questionId)">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

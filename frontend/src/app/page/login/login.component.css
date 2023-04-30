@@ -1,0 +1,47 @@
+.centered-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form {
+  max-width: 400px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 24px;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 auto 20px;
+  max-width: 400px;
+  width: 100%;
+}
+
+nz-form-control {
+  display: flex;
+  align-items: center;
+}
+
+button[nz-button] {
+  margin-top: 0px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nz-form-control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Add this line */
+}
+

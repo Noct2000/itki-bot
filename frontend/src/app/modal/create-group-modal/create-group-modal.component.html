@@ -1,0 +1,21 @@
+<form nz-form [formGroup]="groupForm">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">Назва групи</nz-form-label>
+    <nz-form-control [nzSpan]="8" [nzAutoTips]="nameAutoTips">
+      <input type="text" nz-input formControlName="name" placeholder="123-20СК-1" />
+    </nz-form-control>
+  </nz-form-item>
+  <div *nzModalFooter>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleCancel()"
+    >Скасувати</button>
+    <button
+      nz-button
+      nzType="primary"
+      [disabled]="groupForm.invalid"
+      (click)="handleOk()"
+    >Додати</button>
+  </div>
+</form>
