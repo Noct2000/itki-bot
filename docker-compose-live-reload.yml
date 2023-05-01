@@ -20,7 +20,9 @@ services:
       postgres:
         condition: service_healthy
     image: itki-bot-api
-    build: itki-bot-api/.
+    build:
+      context: ./itki-bot-api
+      dockerfile: Dockerfile.live
     env_file: ./.env
     container_name: api
     ports:
