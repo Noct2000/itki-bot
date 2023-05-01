@@ -39,6 +39,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   delete(groupId: number) {
-    console.log("DELETE: ", groupId);
+    this.groupSubscriptions.push(this.groupService.delete(groupId).subscribe());
   }
 }
