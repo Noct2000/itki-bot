@@ -687,7 +687,10 @@
         "z": "ef8f9b32dc650502",
         "name": "remove buttons and send error",
         "buttons": [],
-        "message": "На це питання я не знаю відповіді, виконай команду /help, щоб переглянути поточний список питань",
+        "message": "На це питання я не знаю відповіді, виконай команду /help, щоб переглянути поточний список питань або перейди на офіційний сайт кафедри ІТКІ https://it.nmu.org.ua/ua/",
+        "isPersistent": false,
+        "oneTimeKeyboard": false,
+        "placeholder": "",
         "x": 910,
         "y": 1740,
         "wires": [
