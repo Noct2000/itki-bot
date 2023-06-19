@@ -1,4 +1,4 @@
-FROM node:17-alpine
+FROM node:18
 RUN npm install -g --unsafe-perm node-red
 
 # Copy flows and settings
