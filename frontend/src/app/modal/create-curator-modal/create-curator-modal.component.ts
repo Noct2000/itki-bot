@@ -46,7 +46,7 @@ export class CreateCuratorModalComponent {
 
   positionAutoTips: Record<string, Record<string, string>> = {
     default: {
-      required: 'Введіть будь ласка вагу посаду',
+      required: 'Введіть будь ласка вашу посаду',
       maxlength: 'Назва посади не може бути довша за 30 сімволів'
     }
   };
