@@ -20,7 +20,7 @@ public class TelegramController {
   @PostMapping("/broadcast/file")
   public ResponseEntity<HttpStatus> sendBroadcastFile(
       @RequestParam("document") MultipartFile multipartFile,
-      @RequestParam("caption") String caption
+      @RequestParam String caption
   ) {
     telegramBroadcastService.sendFile(caption, multipartFile);
     return ResponseEntity.ok().build();
@@ -29,7 +29,7 @@ public class TelegramController {
   @PostMapping("/broadcast/photo")
   public ResponseEntity<HttpStatus> sendBroadcastPhoto(
       @RequestParam("photo") MultipartFile multipartFile,
-      @RequestParam("caption") String caption
+      @RequestParam String caption
   ) {
     telegramBroadcastService.sendPhoto(caption, multipartFile);
     return ResponseEntity.ok().build();

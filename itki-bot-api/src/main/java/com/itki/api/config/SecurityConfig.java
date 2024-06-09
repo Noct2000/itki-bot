@@ -1,82 +1,75 @@
 package com.itki.api.config;
 
-import com.google.common.collect.ImmutableList;
-import com.itki.api.jwt.JwtConfigurer;
+import com.itki.api.jwt.JwtTokenFilter;
 import com.itki.api.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.List;
 
 @Configuration
-@EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-  private final UserDetailsService userDetailsService;
-  private final PasswordEncoder passwordEncoder;
+public class SecurityConfig {
   private final JwtTokenProvider jwtTokenProvider;
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-  }
-
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http.headers().frameOptions().sameOrigin()
-      .and()
-      .csrf().disable()
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and().authorizeRequests()
-      .antMatchers(
-          HttpMethod.GET,
-          "/questions",
-          "/curators",
-          "/curators/**",
-          "/groups",
-          "/telegram-users"
-          ).hasAnyRole("ADMIN", "USER")
-      .antMatchers(
-          HttpMethod.POST,
-          "/questions",
-          "/curators",
-          "/groups",
-          "/telegram-users",
-          "/tg/**"
-      ).hasRole("ADMIN")
-      .antMatchers(
-          HttpMethod.DELETE,
-          "/questions/**",
-          "/curators/**",
-          "/groups/**",
-          "/telegram-users/**"
-      ).hasRole("ADMIN")
-      .antMatchers("/success").permitAll()
-      .antMatchers("/login", "/refresh").permitAll()
-      .anyRequest().authenticated()
-      .and()
-      .apply(new JwtConfigurer(jwtTokenProvider))
-      .and().cors();
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+    http.authorizeHttpRequests(authManager -> authManager
+        .requestMatchers(
+            HttpMethod.GET,
+            "/questions",
+            "/curators",
+            "/curators/**",
+            "/groups",
+            "/telegram-users"
+        ).hasAnyRole("ADMIN", "USER")
+        .requestMatchers(
+            HttpMethod.POST,
+            "/questions",
+            "/curators",
+            "/groups",
+            "/telegram-users",
+            "/tg/**"
+        ).hasRole("ADMIN")
+        .requestMatchers(
+            HttpMethod.DELETE,
+            "/questions/**",
+            "/curators/**",
+            "/groups/**",
+            "/telegram-users/**"
+        ).hasRole("ADMIN")
+        .requestMatchers("/success").permitAll()
+        .requestMatchers("/login", "/refresh").permitAll()
+        .anyRequest().authenticated()
+    );
+    http.csrf(AbstractHttpConfigurer::disable).sessionManagement(
+        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    );
+    http.addFilterBefore(
+        new JwtTokenFilter(jwtTokenProvider),
+        UsernamePasswordAuthenticationFilter.class
+    );
+    return http.build();
   }
 
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     final CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOriginPatterns(ImmutableList.of("*"));
-    configuration.setAllowedMethods(ImmutableList.of("*"));
+    configuration.setAllowedOriginPatterns(List.of("*"));
+    configuration.setAllowedMethods(List.of("*"));
     configuration.setAllowCredentials(true);
-    configuration.setAllowedHeaders(ImmutableList.of("*"));
-    configuration.setExposedHeaders(ImmutableList.of("Access-Control-Allow-Origin",
+    configuration.setAllowedHeaders(List.of("*"));
+    configuration.setExposedHeaders(List.of("Access-Control-Allow-Origin",
         "Access-Control-Allow-Methods", "Access-Control-Allow-Headers", "Access-Control-Max-Age",
         "Access-Control-Request-Headers", "Access-Control-Request-Method"));
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

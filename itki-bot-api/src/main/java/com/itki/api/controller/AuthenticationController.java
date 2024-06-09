@@ -3,7 +3,7 @@ package com.itki.api.controller;
 import com.itki.api.dto.LoginRequestDto;
 import com.itki.api.dto.LoginResponseDto;
 import com.itki.api.service.AuthenticationService;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -28,8 +28,10 @@ import java.util.stream.Collectors;
 @Log4j2
 public class TelegramBroadcastServiceImpl
     extends TelegramWebhookBot implements TelegramBroadcastService {
-  private static final String BLOCKING_MESSAGE = "Error sending message: "
-      + "[403] Forbidden: bot was blocked by the user";
+  private static final String BLOCKING_MESSAGE = """
+      Error sending message: \
+      [403] Forbidden: bot was blocked by the user\
+      """;
   private final TelegramUserService telegramUserService;
   @Value("${TELEGRAM_TOKEN}")
   private String telegramToken;
