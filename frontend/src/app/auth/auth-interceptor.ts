@@ -15,7 +15,7 @@ import {
 } from 'rxjs/operators';
 import {AuthService} from "./auth.service";
 import {TokenService} from "./token.service";
-import {LoginResponseDto} from "./login-response-dto";
+import {TokenDto} from "./token-dto";
 
 const refreshPathname = '/refresh';
 const loginPathname = '/login'
@@ -85,7 +85,7 @@ export class AuthInterceptor implements HttpInterceptor {
       this.refreshTokenSubject.next('');
 
       return this.authService.refreshToken().pipe(
-        switchMap((loginResponseDto: LoginResponseDto) => {
+        switchMap((loginResponseDto: TokenDto) => {
           const newAccessToken = loginResponseDto.token;
 
           this.refreshTokenSubject.next(newAccessToken);

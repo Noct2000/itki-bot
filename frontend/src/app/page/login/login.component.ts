@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import { LoginRequestDto } from '../../auth/login-request-dto';
 import { TokenService } from '../../auth/token.service';
-import { LoginResponseDto } from '../../auth/login-response-dto';
+import { TokenDto } from '../../auth/token-dto';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ROUTES } from '../../../constants/routes.constants';
 
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
       this.authService.authenticate(new LoginRequestDto(username, password)).subscribe(
-        (loginResponseDto: LoginResponseDto) => {
+        (loginResponseDto: TokenDto) => {
           this.tokenService.saveTokens(loginResponseDto.token, loginResponseDto.refreshToken)
           window.location.href = ROUTES.menu
         },
