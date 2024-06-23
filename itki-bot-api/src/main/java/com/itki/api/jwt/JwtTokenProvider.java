@@ -1,10 +1,12 @@
 package com.itki.api.jwt;
 
+import com.itki.api.service.TokenBlackListService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
+import java.time.Duration;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Optional;
@@ -25,9 +27,13 @@ public class JwtTokenProvider {
   private static final int HEADER_OFFSET = 7;
   @Value("${security.jwt.token.expire-length}")
   private long accessTokenValidPeriod;
+  @Value("#{T(java.time.Duration).ofDays('${REFRESH_TOKEN_TTL_IN_DAYS}')}")
+  private Duration refreshTokenValidDuration;
+
   @Value("${security.jwt.token.secret-key}")
   private String secretKey;
   private final UserDetailsService userDetailsService;
+  private final TokenBlackListService tokenBlackListService;
 
   @PostConstruct
   protected void init() {
@@ -35,25 +41,11 @@ public class JwtTokenProvider {
   }
 
   public String createAccessToken(String profileName) {
-    Claims claims = Jwts.claims().setSubject(profileName);
-    Date now = new Date();
-    Date validity = new Date(now.getTime() + accessTokenValidPeriod);
-    return Jwts.builder()
-      .setClaims(claims)
-      .setIssuedAt(now)
-      .setExpiration(validity)
-      .signWith(SignatureAlgorithm.HS256, secretKey)
-      .compact();
+    return buildToken(profileName, accessTokenValidPeriod);
   }
 
   public String createRefreshToken(String profileName) {
-    Claims claims = Jwts.claims().setSubject(profileName);
-    Date now = new Date();
-    return Jwts.builder()
-        .setClaims(claims)
-        .setIssuedAt(now)
-        .signWith(SignatureAlgorithm.HS256, secretKey)
-        .compact();
+    return buildToken(profileName, refreshTokenValidDuration.toMillis());
   }
 
   public Authentication getAuthentication(String token) {
@@ -82,6 +74,20 @@ public class JwtTokenProvider {
     if (Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
       .getBody().getExpiration().before(new Date())) {
       throw new JwtException("Jwt token is expired");
+    } else if (tokenBlackListService.isTokenInBlackList(token)) {
+      throw new JwtException("Jwt token was used");
     }
+  }
+
+  private String buildToken(String profileName, long refreshTokenValidDuration) {
+    Claims claims = Jwts.claims().setSubject(profileName);
+    Date now = new Date();
+    Date validity = new Date(now.getTime() + refreshTokenValidDuration);
+    return Jwts.builder()
+        .setClaims(claims)
+        .setIssuedAt(now)
+        .setExpiration(validity)
+        .signWith(SignatureAlgorithm.HS256, secretKey)
+        .compact();
   }
 }

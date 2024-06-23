@@ -10,12 +10,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "[group]")
-public class Group {
+public class Group implements Serializable {
   @Id
   @GeneratedValue(generator = "group_id_seq", strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(

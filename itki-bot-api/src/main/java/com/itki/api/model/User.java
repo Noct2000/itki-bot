@@ -11,13 +11,14 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "[user]")
-public class User {
+public class User implements Serializable {
   @Id
   @GeneratedValue(generator = "user_id_seq", strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(

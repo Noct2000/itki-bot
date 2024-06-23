@@ -10,12 +10,13 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role implements Serializable {
   @Id
   @GeneratedValue(generator = "role_id_seq", strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(

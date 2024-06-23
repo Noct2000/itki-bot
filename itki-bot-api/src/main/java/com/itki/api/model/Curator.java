@@ -8,12 +8,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "curator")
-public class Curator {
+public class Curator implements Serializable {
   @Id
   @GeneratedValue(generator = "curator_id_seq", strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(

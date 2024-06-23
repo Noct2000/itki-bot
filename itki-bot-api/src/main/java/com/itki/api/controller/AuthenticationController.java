@@ -1,7 +1,7 @@
 package com.itki.api.controller;
 
 import com.itki.api.dto.LoginRequestDto;
-import com.itki.api.dto.LoginResponseDto;
+import com.itki.api.dto.TokenDto;
 import com.itki.api.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,22 +18,28 @@ public class AuthenticationController {
   private final AuthenticationService authenticationService;
 
   @PostMapping("/login")
-  public ResponseEntity<LoginResponseDto> login(
+  public ResponseEntity<TokenDto> login(
       @Valid @RequestBody LoginRequestDto loginRequestDto
   ) {
-    Optional<LoginResponseDto> loginResponseDto = authenticationService
+    Optional<TokenDto> loginResponseDto = authenticationService
         .login(loginRequestDto.getLogin(), loginRequestDto.getPassword());
     return getLoginResponseDto(loginResponseDto);
   }
 
   @PostMapping("/refresh")
-  public ResponseEntity<LoginResponseDto> refresh(@RequestBody String refreshToken) {
-    Optional<LoginResponseDto> loginResponseDto = authenticationService.login(refreshToken);
+  public ResponseEntity<TokenDto> refresh(@RequestBody String refreshToken) {
+    Optional<TokenDto> loginResponseDto = authenticationService.login(refreshToken);
     return getLoginResponseDto(loginResponseDto);
   }
 
-  private ResponseEntity<LoginResponseDto> getLoginResponseDto(
-      Optional<LoginResponseDto> loginResponseDto
+  @PostMapping("/logout")
+  public ResponseEntity<Boolean> logout(@Valid @RequestBody TokenDto tokenDto) {
+    authenticationService.logout(tokenDto.getToken(), tokenDto.getRefreshToken());
+    return ResponseEntity.ok(true);
+  }
+
+  private ResponseEntity<TokenDto> getLoginResponseDto(
+      Optional<TokenDto> loginResponseDto
   ) {
     if (loginResponseDto.isPresent()) {
       return ResponseEntity.ok(loginResponseDto.get());

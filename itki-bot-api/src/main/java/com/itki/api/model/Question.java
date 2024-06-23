@@ -9,12 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "question")
-public class Question {
+public class Question implements Serializable {
   @Id
   @GeneratedValue(generator = "question_id_seq", strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(

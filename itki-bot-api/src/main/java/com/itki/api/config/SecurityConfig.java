@@ -24,6 +24,8 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+    http.httpBasic(AbstractHttpConfigurer::disable);
+    http.logout(AbstractHttpConfigurer::disable);
     http.authorizeHttpRequests(authManager -> authManager
         .requestMatchers(
             HttpMethod.GET,
@@ -49,7 +51,7 @@ public class SecurityConfig {
             "/telegram-users/**"
         ).hasRole("ADMIN")
         .requestMatchers("/success").permitAll()
-        .requestMatchers("/login", "/refresh").permitAll()
+        .requestMatchers("/login", "/refresh", "/logout").permitAll()
         .anyRequest().authenticated()
     );
     http.csrf(AbstractHttpConfigurer::disable).sessionManagement(

@@ -8,12 +8,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "telegram_user")
-public class TelegramUser {
+public class TelegramUser implements Serializable {
   @Id
   @GeneratedValue(generator = "telegram_user_id_seq", strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(
