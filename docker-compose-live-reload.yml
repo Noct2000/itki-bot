@@ -27,12 +27,34 @@ services:
       timeout: 5s
       retries: 5
 
+  # FILE STORAGE
+  minio:
+    platform: linux/x86_64
+    container_name: minio
+    env_file: ./.env
+    build:
+      context: ./minio
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ACCESS_KEY: $MINIO_ACCESS_KEY
+      MINIO_SECRET_KEY: $MINIO_SECRET_KEY
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   # API
   api:
     depends_on:
       postgres:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      minio:
         condition: service_healthy
     image: itki-bot-api
     build:
