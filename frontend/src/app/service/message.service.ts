@@ -13,7 +13,9 @@ export class MessageService {
   private readonly sendPhotoMessageUrl = `${this.apiUrl}/tg/broadcast/photo`;
   private readonly sendPhotoMessageWithMinioUrl = `${this.apiUrl}/tg/v2/broadcast/photo`;
   private readonly sendDocumentMessageUrl = `${this.apiUrl}/tg/broadcast/file`;
+  private readonly sendDocumentMessageWithMinioUrl = `${this.apiUrl}/tg/v2/broadcast/file`;
   private readonly sendPhotoGroupMessageUrl = `${this.apiUrl}/tg/broadcast/mediaGroup/photo`;
+  private readonly sendPhotoGroupMessageWithMinioUrl = `${this.apiUrl}/tg/v2/broadcast/mediaGroup/photo`;
   private readonly uploadToMinioUrl = `${this.apiUrl}/minio/upload`;
 
 
@@ -56,6 +58,14 @@ export class MessageService {
     );
   }
 
+  sendFileWithMinio(text: string, document: string): Observable<void> {
+    const requestDto = new TelegramSendFileRequestDto(text, [document])
+    return this.httpClient.post<void>(
+      this.sendDocumentMessageWithMinioUrl,
+      requestDto
+    );
+  }
+
   sendPhotoGroup(photos: any[]): Observable<void> {
     const formData = new FormData();
     photos.forEach(
@@ -64,6 +74,14 @@ export class MessageService {
     return this.httpClient.post<void>(
       this.sendPhotoGroupMessageUrl,
       formData
+    );
+  }
+
+  sendPhotoGroupWithMinio(photos: string[]): Observable<void> {
+    const requestDto = new TelegramSendFileRequestDto('', [... photos])
+    return this.httpClient.post<void>(
+      this.sendPhotoGroupMessageWithMinioUrl,
+      requestDto
     );
   }
 

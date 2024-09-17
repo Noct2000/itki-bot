@@ -48,6 +48,7 @@ export class SendPhotoComponent implements OnInit, OnDestroy {
       () => {
         this.uploading = false;
         this.fileList = [];
+        this.filename = '';
         this.captionForm.reset();
         this.nzMessageService.success('Ви успішно надіслали повідомлення');
       }

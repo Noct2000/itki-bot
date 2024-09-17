@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { MessageService } from '../../../../service/message.service';
 import { Subscription } from 'rxjs';
@@ -13,12 +12,12 @@ import { Subscription } from 'rxjs';
 })
 export class SendFileComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  private filename: string = '';
   captionForm!: UntypedFormGroup;
   uploading = false;
   fileList: NzUploadFile[] = [];
 
   constructor(
-    private http: HttpClient,
     private nzMessageService: NzMessageService,
     private messageService: MessageService,
     private formBuilder: UntypedFormBuilder,
@@ -38,20 +37,34 @@ export class SendFileComponent implements OnInit, OnDestroy {
 
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = this.fileList.concat(file);
+    this.uploadToMinio(file);
     return false;
   };
 
   handleUpload(): void {
     this.uploading = true;
     const caption = this.captionForm.value.caption ? this.captionForm.value.caption : '';
-    const subscription = this.messageService.sendFile(caption.trim(), this.fileList[0]).subscribe(
+    const subscription = this.messageService.sendFileWithMinio(caption.trim(), this.filename).subscribe(
       () => {
         this.uploading = false;
         this.fileList = [];
+        this.filename = '';
         this.captionForm.reset();
         this.nzMessageService.success('Ви успішно надіслали повідомлення');
       }
     );
     this.subscriptions.push(subscription);
+  }
+
+  uploadToMinio(file: NzUploadFile): Subscription {
+    this.uploading = true;
+    return this.messageService.uploadToMinio(file).subscribe(
+      (fileResponse) => {
+        this.uploading = false;
+        this.filename = fileResponse.filenames[0];
+      }, (error) => {
+        console.log(`error = ${JSON.stringify(error)}`)
+      }
+    )
   }
 }

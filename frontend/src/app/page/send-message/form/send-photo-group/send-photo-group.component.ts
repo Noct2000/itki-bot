@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { MessageService } from '../../../../service/message.service';
 
@@ -12,11 +11,11 @@ import { MessageService } from '../../../../service/message.service';
 })
 export class SendPhotoGroupComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];
+  private filenameMinioIdMap: Map<string, string> = new Map<string, string>();
   uploading = false;
   fileList: NzUploadFile[] = [];
 
   constructor(
-    private http: HttpClient,
     private nzMessageService: NzMessageService,
     private messageService: MessageService,
   ) {}
@@ -29,18 +28,39 @@ export class SendPhotoGroupComponent implements OnDestroy {
 
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = this.fileList.concat(file);
+    this.uploadToMinio(file);
     return false;
+  };
+
+
+  onRemoveFile = (file: NzUploadFile): boolean => {
+    this.filenameMinioIdMap.delete(file.uid);
+    return true;
   };
 
   handleUpload(): void {
     this.uploading = true;
-    const subscription = this.messageService.sendPhotoGroup(this.fileList).subscribe(
+    const filenames: string[] = [... this.filenameMinioIdMap.values()];
+    const subscription = this.messageService.sendPhotoGroupWithMinio(filenames).subscribe(
       () => {
         this.uploading = false;
         this.fileList = [];
+        this.filenameMinioIdMap.clear();
         this.nzMessageService.success('Ви успішно надіслали повідомлення');
       }
     );
     this.subscriptions.push(subscription);
+  }
+
+  uploadToMinio(file: NzUploadFile): Subscription {
+    this.uploading = true;
+    return this.messageService.uploadToMinio(file).subscribe(
+      (fileResponse) => {
+        this.uploading = false;
+        this.filenameMinioIdMap.set(file.uid, fileResponse.filenames[0]);
+      }, (error) => {
+        console.log(`error = ${JSON.stringify(error)}`)
+      }
+    )
   }
 }
