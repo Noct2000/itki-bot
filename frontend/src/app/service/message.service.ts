@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import {TelegramSendFileRequestDto} from "../dto/telegram-send-file-request-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,10 @@ export class MessageService {
   private readonly apiUrl = environment.apiBaseUrl;
   private readonly sendTextMessageUrl = `${this.apiUrl}/tg/broadcast/text`;
   private readonly sendPhotoMessageUrl = `${this.apiUrl}/tg/broadcast/photo`;
+  private readonly sendPhotoMessageWithMinioUrl = `${this.apiUrl}/tg/v2/broadcast/photo`;
   private readonly sendDocumentMessageUrl = `${this.apiUrl}/tg/broadcast/file`;
   private readonly sendPhotoGroupMessageUrl = `${this.apiUrl}/tg/broadcast/mediaGroup/photo`;
+  private readonly uploadToMinioUrl = `${this.apiUrl}/minio/upload`;
 
 
   constructor(
@@ -35,6 +38,14 @@ export class MessageService {
     );
   }
 
+  sendPhotoWithMinio(text: string, photo: string): Observable<void> {
+    const requestDto = new TelegramSendFileRequestDto(text, [photo])
+    return this.httpClient.post<void>(
+      this.sendPhotoMessageWithMinioUrl,
+      requestDto
+    );
+  }
+
   sendFile(text: string, document: any): Observable<void> {
     const formData = new FormData();
     formData.append('caption', text);
@@ -54,5 +65,14 @@ export class MessageService {
       this.sendPhotoGroupMessageUrl,
       formData
     );
+  }
+
+  uploadToMinio(file: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.httpClient.post<string>(
+      this.uploadToMinioUrl,
+      formData
+    )
   }
 }
