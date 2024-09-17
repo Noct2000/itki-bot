@@ -18,7 +18,9 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.media.InputMedia;
 import org.telegram.telegrambots.meta.api.objects.media.InputMediaPhoto;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +47,7 @@ public class TelegramBroadcastServiceImpl
     SendDocument sendDocument = new SendDocument();
     for (String externalChatId: externalChatIds) {
       sendDocument.setChatId(externalChatId);
-      sendDocument.setDocument(this.toInputFile(file));
+      sendDocument.setDocument(this.toInputFile(file.getInputStream(), file.getOriginalFilename()));
       sendDocument.setCaption(caption);
       try {
         execute(sendDocument);
@@ -61,14 +63,22 @@ public class TelegramBroadcastServiceImpl
     SendPhoto sendPhoto = new SendPhoto();
     List<String> externalChatIds = telegramUserService.getAllExternalChatIds();
     for (String externalChatId: externalChatIds) {
-      sendPhoto.setPhoto(this.toInputFile(photo));
-      sendPhoto.setCaption(caption);
-      sendPhoto.setChatId(externalChatId);
-      try {
-        execute(sendPhoto);
-      } catch (TelegramApiRequestException telegramApiRequestException) {
-        handleUserBlocking(externalChatId, telegramApiRequestException);
-      }
+      sendPhotoToSpecialChat(
+          caption,
+          this.toInputFile(photo.getInputStream(), photo.getOriginalFilename()),
+          externalChatId,
+          sendPhoto
+      );
+    }
+  }
+
+  @Override
+  @SneakyThrows
+  public void sendPhoto(String caption, InputStream photo, String filename) {
+    SendPhoto sendPhoto = new SendPhoto();
+    List<String> externalChatIds = telegramUserService.getAllExternalChatIds();
+    for (String externalChatId: externalChatIds) {
+      sendPhotoToSpecialChat(caption, this.toInputFile(photo, filename), externalChatId, sendPhoto);
     }
   }
 
@@ -127,8 +137,8 @@ public class TelegramBroadcastServiceImpl
   }
 
   @SneakyThrows
-  private InputFile toInputFile(MultipartFile multipartFile) {
-    return new InputFile(multipartFile.getInputStream(), multipartFile.getOriginalFilename());
+  private InputFile toInputFile(InputStream inputStream, String filename) {
+    return new InputFile(inputStream, filename);
   }
 
   @SneakyThrows
@@ -147,6 +157,22 @@ public class TelegramBroadcastServiceImpl
       telegramUserService.deleteByExternalChatId(externalChatId);
     } else {
       throw telegramApiRequestException;
+    }
+  }
+
+  private void sendPhotoToSpecialChat(
+      String caption,
+      InputFile photo,
+      String externalChatId,
+      SendPhoto sendPhoto
+  ) throws TelegramApiException {
+    sendPhoto.setPhoto(photo);
+    sendPhoto.setCaption(caption);
+    sendPhoto.setChatId(externalChatId);
+    try {
+      execute(sendPhoto);
+    } catch (TelegramApiRequestException telegramApiRequestException) {
+      handleUserBlocking(externalChatId, telegramApiRequestException);
     }
   }
 }
