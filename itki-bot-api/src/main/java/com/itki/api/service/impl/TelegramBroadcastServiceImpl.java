@@ -20,9 +20,11 @@ import org.telegram.telegrambots.meta.api.objects.media.InputMedia;
 import org.telegram.telegrambots.meta.api.objects.media.InputMediaPhoto;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,14 +48,27 @@ public class TelegramBroadcastServiceImpl
     List<String> externalChatIds = telegramUserService.getAllExternalChatIds();
     SendDocument sendDocument = new SendDocument();
     for (String externalChatId: externalChatIds) {
-      sendDocument.setChatId(externalChatId);
-      sendDocument.setDocument(this.toInputFile(file.getInputStream(), file.getOriginalFilename()));
-      sendDocument.setCaption(caption);
-      try {
-        execute(sendDocument);
-      } catch (TelegramApiRequestException telegramApiRequestException) {
-        handleUserBlocking(externalChatId, telegramApiRequestException);
-      }
+      sendFileToChat(
+          caption,
+          this.toInputFile(file.getInputStream(), file.getOriginalFilename()),
+          externalChatId,
+          sendDocument
+      );
+    }
+  }
+
+  @Override
+  @SneakyThrows
+  public void sendFile(String caption, InputStream file, String filename) {
+    List<String> externalChatIds = telegramUserService.getAllExternalChatIds();
+    SendDocument sendDocument = new SendDocument();
+    for (String externalChatId: externalChatIds) {
+      sendFileToChat(
+          caption,
+          this.toInputFile(file, filename),
+          externalChatId,
+          sendDocument
+      );
     }
   }
 
@@ -117,6 +132,26 @@ public class TelegramBroadcastServiceImpl
   }
 
   @Override
+  @SneakyThrows
+  public void sendPhotoMediaGroup(Map<String, InputStream> filenameInputStreamMap) {
+    SendMediaGroup sendMediaGroup = new SendMediaGroup();
+    List<String> externalChatIds = telegramUserService.getAllExternalChatIds();
+    for (String externalChatId: externalChatIds) {
+      sendMediaGroup.setMedias(
+          filenameInputStreamMap.entrySet().stream()
+              .map(entry -> this.toInputPhotoMedia(entry.getValue(), entry.getKey()))
+              .collect(Collectors.toList())
+      );
+      sendMediaGroup.setChatId(externalChatId);
+      try {
+        execute(sendMediaGroup);
+      } catch (TelegramApiRequestException telegramApiRequestException) {
+        handleUserBlocking(externalChatId, telegramApiRequestException);
+      }
+    }
+  }
+
+  @Override
   public String getBotUsername() {
     return telegramBotUsername;
   }
@@ -143,8 +178,16 @@ public class TelegramBroadcastServiceImpl
 
   @SneakyThrows
   private InputMedia toInputPhotoMedia(MultipartFile multipartFile) {
+    return toInputPhotoMedia(
+        multipartFile.getInputStream(),
+        multipartFile.getOriginalFilename()
+    );
+  }
+
+  @SneakyThrows
+  private InputMedia toInputPhotoMedia(InputStream inputStream, String filename) {
     InputMediaPhoto inputMediaPhoto = new InputMediaPhoto();
-    inputMediaPhoto.setMedia(multipartFile.getInputStream(), multipartFile.getOriginalFilename());
+    inputMediaPhoto.setMedia(inputStream, filename);
     return inputMediaPhoto;
   }
 
@@ -171,6 +214,21 @@ public class TelegramBroadcastServiceImpl
     sendPhoto.setChatId(externalChatId);
     try {
       execute(sendPhoto);
+    } catch (TelegramApiRequestException telegramApiRequestException) {
+      handleUserBlocking(externalChatId, telegramApiRequestException);
+    }
+  }
+
+  private void sendFileToChat(
+      String caption,
+      InputFile file,
+      String externalChatId,
+      SendDocument sendDocument) throws IOException, TelegramApiException {
+    sendDocument.setChatId(externalChatId);
+    sendDocument.setDocument(file);
+    sendDocument.setCaption(caption);
+    try {
+      execute(sendDocument);
     } catch (TelegramApiRequestException telegramApiRequestException) {
       handleUserBlocking(externalChatId, telegramApiRequestException);
     }
