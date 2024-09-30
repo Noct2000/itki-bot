@@ -10,6 +10,7 @@ import {TelegramSendFileRequestDto} from "../dto/telegram-send-file-request-dto"
 export class MessageService {
   private readonly apiUrl = environment.apiBaseUrl;
   private readonly sendTextMessageUrl = `${this.apiUrl}/tg/broadcast/text`;
+  private readonly sendAsyncTextMessageUrl = `${this.apiUrl}/tg/broadcast/text`;
   private readonly sendPhotoMessageUrl = `${this.apiUrl}/tg/broadcast/photo`;
   private readonly sendPhotoMessageWithMinioUrl = `${this.apiUrl}/tg/v2/broadcast/photo`;
   private readonly sendDocumentMessageUrl = `${this.apiUrl}/tg/broadcast/file`;
@@ -28,6 +29,13 @@ export class MessageService {
       this.sendTextMessageUrl,
       text,
       );
+  }
+
+  sendAsyncTextMessage(text: string): Observable<void> {
+    return this.httpClient.post<void>(
+      this.sendAsyncTextMessageUrl,
+      text,
+    );
   }
 
   sendPhoto(text: string, photo: any): Observable<void> {
