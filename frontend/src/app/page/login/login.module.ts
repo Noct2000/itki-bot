@@ -5,25 +5,18 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { AuthService } from '../../auth/auth.service';
-import { HttpClientModule } from '@angular/common/http';
-import { NzMessageServiceModule } from 'ng-zorro-antd/message';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
 
-@NgModule({
-  imports: [
-    LoginRoutingModule,
-    NzGridModule,
-    ReactiveFormsModule,
-    NzButtonModule,
-    HttpClientModule,
-    NzMessageServiceModule,
-    NzLayoutModule,
-    NzFormModule,
-  ],
-  declarations: [LoginComponent],
-  exports: [LoginComponent],
-  providers: [AuthService],
-})
+@NgModule({ declarations: [LoginComponent],
+    exports: [LoginComponent], imports: [LoginRoutingModule,
+        NzGridModule,
+        ReactiveFormsModule,
+        NzButtonModule,
+        NzMessageModule,
+        NzLayoutModule,
+        NzFormModule], providers: [AuthService, provideHttpClient(withInterceptorsFromDi())] })
 export class LoginModule { }

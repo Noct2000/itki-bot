@@ -58,7 +58,7 @@ export class CreateGroupModalComponent implements OnInit, OnDestroy {
       nzOnOk: () => this.handleOk(),
       nzContent: CreateGroupModalComponent,
       nzClosable: false,
-      nzComponentParams: {
+      nzData: {
         curator: curator
       },
     });

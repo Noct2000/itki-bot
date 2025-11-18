@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {BehaviorSubject, Observable, tap, withLatestFrom} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {Curator} from "../model/curator";
 import {CuratorRequestDto} from "../dto/curator-request-dto";
 
