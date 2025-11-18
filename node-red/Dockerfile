@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:20
 RUN npm install -g --unsafe-perm node-red
 
 # Copy flows and settings
