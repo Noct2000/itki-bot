@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {BehaviorSubject, Observable, tap, withLatestFrom} from "rxjs";
 import {Question} from "../model/question";
 import {environment} from "../../environments/environment";

@@ -37,7 +37,7 @@ export class SendTextComponent implements OnInit, OnDestroy {
   sendMessage() {
     if (this.textForm.valid) {
       const { text } = this.textForm.value;
-      this.messageSubscription= this.messageService.sendTextMessage(text.trim()).subscribe(
+      this.messageSubscription= this.messageService.sendAsyncTextMessage(text.trim()).subscribe(
         () => {
           this.textForm.reset();
           this.nzMessageService.success("Ви успішно надіслали повідомлення")

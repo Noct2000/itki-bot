@@ -8,6 +8,7 @@
     [nzMultiple]="true"
     [nzDisabled]="fileList.length === 50"
     [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload"
+    [nzRemove]="onRemoveFile"
 
   >
     <p class="ant-upload-drag-icon">

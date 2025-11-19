@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { Router } from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
-import { ROUTES } from '../../../constants/routes.constants';
 
 @Component({
   selector: 'app-exit-nzModalService',
@@ -12,7 +10,6 @@ import { ROUTES } from '../../../constants/routes.constants';
 export class ExitModalComponent {
   constructor(
     private nzModalService: NzModalService,
-    private router: Router,
     private authService: AuthService,
   ) {
   }
@@ -34,7 +31,6 @@ export class ExitModalComponent {
 
   handleOk(): void {
     this.authService.logout();
-    this.router.navigate([ROUTES.login]);
   }
 
   handleCancel(): void {

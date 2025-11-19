@@ -14,7 +14,7 @@ public abstract class CrudServiceImpl<T> implements CrudService<T> {
   public T findById(Long id) {
     return repository.findById(id)
       .orElseThrow(() -> new RuntimeException(
-        String.format("No entity: '%s' with id: %d", entityName, id)
+      "No entity: '%s' with id: %d".formatted(entityName, id)
       ));
   }
 
